@@ -6,6 +6,7 @@ add_numbers() {
     echo "Sum: $sum"
 }
 
+
 # 提示用户输入两个数字
 read -p "请输入第一个数字: " num1
 read -p "请输入第二个数字: " num2
