@@ -1,0 +1,3 @@
+2 -- tail -5 nowcoder.txt
+4 head -5 nowcoder.txt| tail -1 
+9 cat nowcoder.txt|tr -s ' ' "\n"|sort|uniq -c|sort|awk '{print $2,$1}' awk '{for(i=1;i<=NF;i++)a[$i]++" "$i}END{for(i in a)print i, a[i]}'
