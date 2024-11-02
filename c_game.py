@@ -1,5 +1,6 @@
 import random
-from question import grep_commands, cut_commands, cat_commands
+from question import grep_commands, cut_commands, cat_commands, sort_commands, uniq_commands, tr_commands, shell_commands, shell_dic_commands, user_group_commands
+from question import process_commands, archive_commands, high_frequency_commands, low_frequency_commands, redhat_commands, debian_commands
 # Linux commands and their descriptions
 commands = {
     'ls': 'List directory contents',
@@ -43,6 +44,7 @@ awk_commands = [
 ]
 
 # "sed": "Stream editor for filtering and transforming text",
+# {"command": "sed -e 's/(.*)/\\U\\1/'", "description": "Convert the entire line to uppercase"},
 sed_commands = [
     {"command": "sed 's/old/new/g' file.txt", "description": "Replace all occurrences of 'old' with 'new' in file.txt"},
     {"command": "sed -n '3p' file.txt", "description": "Print the third line of file.txt"},
@@ -50,7 +52,6 @@ sed_commands = [
     {"command": "sed -e 's/foo/bar/' -e 's/baz/qux/'", "description": "Replace 'foo' with 'bar' and 'baz' with 'qux'"},
     {"command": "sed -i 's/old/new/g' file.txt", "description": "Edit file.txt in place, replacing 'old' with 'new'"},
     {"command": "sed -n '/pattern/p' file.txt", "description": "Print lines that match a specified pattern"},
-    {"command": "sed -e 's/(.*)/\\U\\1/'", "description": "Convert the entire line to uppercase"},
 ]
 
 find_commands = [
@@ -137,11 +138,12 @@ docker_compose_commands = [
     {"command": "docker-compose restart", "description": "Restart the services defined in the Compose file", "parameters": "service_name"},
 ]
 
-commands = cut_commands
+commands = low_frequency_commands 
+# + uniq_commands
 
 def quiz_user():
     score = 0
-    total_questions = 5
+    total_questions =  5 if (len(commands) >= 5) else len(commands)
 
     questions = random.sample(commands, total_questions)  # Get unique questions
 
@@ -151,10 +153,10 @@ def quiz_user():
         user_answer = input("What is the command? ")
         
         if user_answer.lower() == question['command'].lower():
-            print("Correct!\n")
+            print("\033[92mCorrect!\033[0m\n")
             score += 1
         else:
-            print(f"Wrong! The correct answer is: {question['command']}\n")
+            print(f"\033[94mWrong! The correct answer is: {question['command']}\033[0m\n")
 
     print(f"Your final score: {score}/{total_questions}")
 
