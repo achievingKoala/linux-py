@@ -138,8 +138,21 @@ docker_compose_commands = [
     {"command": "docker compose restart", "description": "Restart the services defined in the Compose file", "parameters": "service_name"},
 ]
 
-commands = docker_compose_commands
+commands = sort_commands
 # + uniq_commands
+
+def print_colored(word, wordColor):
+    color_codes = {
+        'green': "\033[92m",
+        'red': "\033[91m",
+        'blue': "\033[94m",
+    }
+    reset_code = "\033[0m"
+    
+    if wordColor in color_codes:
+        print(f"{color_codes[wordColor]}{word}{reset_code}")
+    else:
+        print(word)  # Default to printing the word without color
 
 def quiz_user():
     score = 0
@@ -153,10 +166,10 @@ def quiz_user():
         user_answer = input("What is the command? ")
         
         if user_answer.lower() == question['command'].lower():
-            print("\033[92mCorrect!\033[0m\n")
+            print_colored("Correct!", "green")
             score += 1
         else:
-            print(f"\033[94mThe correct answer is : {question['command']}\033[0m\n")
+            print_colored(f"The correct answer is: {question['command']}", "blue")
 
     print(f"Your final score: {score}/{total_questions}")
 

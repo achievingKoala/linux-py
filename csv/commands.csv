@@ -1,0 +1,5 @@
+Command,Description
+cut -c 1-5 filename.txt,Extract the first five characters from each line in 'filename.txt'
+"cut -d ',' -f 2 data.csv",Extract the second field from each line in 'data.csv' using a comma as the delimiter
+"cut -d ' ' -f 1,3,5 report.txt","Extract the first, third, and fifth fields from each line in 'report.txt'"
+cut -d ':' -f 1 /etc/passwd,Extract the usernames from the '/etc/passwd' file
