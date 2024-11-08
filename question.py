@@ -186,3 +186,30 @@ low_frequency_commands = [
     {"command": "sftp> put file", "description": "Upload a file via SFTP"}
 ]
 
+docker_swarm_commands = [
+    {"command": "docker swarm init", "description": "Initialize a new Docker Swarm"},
+    {"command": "docker swarm join --token token manager-ip:port", "description": "Join a node to the Swarm using the provided token"},
+    {"command": "docker node ls", "description": "List all nodes in the Swarm"},
+    {"command": "docker node rm node-id", "description": "Remove a node from the Swarm by node ID"},
+    {"command": "docker service create --name service-name --replicas number image", "description": "Create a new service in the Swarm with specified replicas"},
+    {"command": "docker service ls", "description": "List all services in the Swarm"},
+    {"command": "docker service scale service-name=replicas", "description": "Scale a service to the specified number of replicas"},
+    {"command": "docker service update --image new-image service-name", "description": "Update a service to use a new image"},
+    {"command": "docker service rm service-name", "description": "Remove a service from the Swarm"},
+    {"command": "docker stack deploy -c compose-file stack-name", "description": "Deploy a stack using a Docker Compose file"},
+    {"command": "docker stack rm stack-name", "description": "Remove a stack from the Swarm"},
+    {"command": "docker stack ls", "description": "List all stacks in the Swarm"},
+    {"command": "docker stack services stack-name", "description": "List all services in a specific stack"},
+    {"command": "docker node update --availability drain/pause/active node-id", "description": "Update the availability status of a node"},
+]
+
+docker_nginx_swarm_commands = [
+    {"command": "docker swarm init", "description": "Initialize a new Docker Swarm"},
+    {"command": "docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx", "description": "Create an Nginx service with 3 replicas, exposing port 80"},
+    {"command": "docker service ls", "description": "List all services to verify the deployment"},
+    {"command": "docker service ps nginx_cluster", "description": "Check the status and replica count of the Nginx service"},
+    {"command": "docker service scale nginx_cluster=5", "description": "Scale the Nginx service to 5 replicas"},
+    {"command": "docker service update --image nginx:latest nginx_cluster", "description": "Update the Nginx service to use the latest image"},
+    {"command": "docker service rm nginx_cluster", "description": "Remove the Nginx service from the Swarm"},
+]
+

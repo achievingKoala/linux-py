@@ -1,6 +1,8 @@
 import random
 from question import grep_commands, cut_commands, cat_commands, sort_commands, uniq_commands, tr_commands, shell_commands, shell_dic_commands, user_group_commands
 from question import process_commands, archive_commands, high_frequency_commands, low_frequency_commands, redhat_commands, debian_commands
+from question import docker_swarm_commands, docker_nginx_swarm_commands
+from query_csv import get_docker_nginx_swarm_commands
 # Linux commands and their descriptions
 commands = {
     'ls': 'List directory contents',
@@ -138,7 +140,14 @@ docker_compose_commands = [
     {"command": "docker compose restart", "description": "Restart the services defined in the Compose file", "parameters": "service_name"},
 ]
 
-commands = sort_commands
+# commands = tr_commands
+# commands = shell_dic_commands
+# commands = user_group_commands
+# commands = process_commands
+# commands = archive_commands
+# commands = docker_swarm_commands
+commands = get_docker_nginx_swarm_commands()
+commands = docker_compose_commands
 # + uniq_commands
 
 def print_colored(word, wordColor):
