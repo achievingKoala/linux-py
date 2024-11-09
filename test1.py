@@ -1,0 +1,17 @@
+docker_compose_commands = [
+    {"command": "version: '3.8'", "description": "Specify the version of the Docker Compose file format"},
+    {"command": "services:", "description": "Define the services that make up the application"},
+    {"command": "build: context: ./backend, dockerfile: Dockerfile", "description": "Specify build options for the service, including context and Dockerfile"},
+    {"command": "image: nginx:latest", "description": "Specify the Docker image to use for the service"},
+    {"command": "ports: '80:80', '5000:5000'", "description": "Map ports from the host to the container"},
+    {"command": "volumes: './data:/data', 'db_data:/var/lib/mysql'", "description": "Mount host directories or volumes to the container"},
+    {"command": "environment: MYSQL_ROOT_PASSWORD: example", "description": "Set environment variables for the service"},
+    {"command": "depends_on: backend", "description": "Specify dependencies between services, ensuring one starts before another"},
+    {"command": "networks: my_network", "description": "Define custom networks for communication between services"},
+    {"command": "command: [\"python3\", \"app.py\"]", "description": "Override the default command for the service"},
+    {"command": "docker compose up -d --build", "description": "Start services in detached mode (background)"},
+    {"command": "docker compose down --volumes", "description": "Stop and remove all services and networks defined in the Compose file"},
+    {"command": "docker compose ps", "description": "List the status of the services defined in the Compose file"},
+    {"command": "docker compose logs --follow", "description": "View the logs for services defined in the Compose file"},
+    {"command": "docker compose restart service_name", "description": "Restart the services defined in the Compose file"},
+]

@@ -2,7 +2,8 @@ import random
 from question import grep_commands, cut_commands, cat_commands, sort_commands, uniq_commands, tr_commands, shell_commands, shell_dic_commands, user_group_commands
 from question import process_commands, archive_commands, high_frequency_commands, low_frequency_commands, redhat_commands, debian_commands
 from question import docker_swarm_commands, docker_nginx_swarm_commands
-from query_csv import get_docker_nginx_swarm_commands
+from query_csv import get_commands
+from record_csv import update_count_csv
 # Linux commands and their descriptions
 commands = {
     'ls': 'List directory contents',
@@ -68,8 +69,8 @@ find_commands = [
     {"command": "find /dir -user username", "description": "Find files owned by a specific user"},
     {"command": "find /dir -group groupname", "description": "Find files owned by a specific group"},
     {"command": "find /dir -maxdepth 2 -name '*.conf'", "description": "Find .conf files in a dir, limiting search to a depth of 2"},
-    # {"command": "find /dir -exec rm {} \\;", "description": "Find files and execute a command on each (e.g., delete matching files)"},
 ]
+# {"command": "find /dir -exec rm {} \\;", "description": "Find files and execute a command on each (e.g., delete matching files)"},
 
 docker_basic_commands = [
     {"command": "docker search image_name", "description": "Search for an image in Docker Hub"},
@@ -125,19 +126,19 @@ dockerfile_more_comands = [
 docker_compose_commands = [
     {"command": "version: '3.8'", "description": "Specify the version of the Docker Compose file format"},
     {"command": "services:", "description": "Define the services that make up the application"},
-    {"command": "build:", "description": "Specify build options for the service, including context and Dockerfile", "parameters": "context: ./backend, dockerfile: Dockerfile"},
-    {"command": "image:", "description": "Specify the Docker image to use for the service", "parameters": "nginx:latest"},
-    {"command": "ports:", "description": "Map ports from the host to the container", "parameters": "'80:80', '5000:5000'"},
-    {"command": "volumes:", "description": "Mount host directories or volumes to the container", "parameters": "'./data:/data', 'db_data:/var/lib/mysql'"},
-    {"command": "environment:", "description": "Set environment variables for the service", "parameters": "MYSQL_ROOT_PASSWORD: example"},
-    {"command": "depends_on:", "description": "Specify dependencies between services, ensuring one starts before another", "parameters": "backend"},
-    {"command": "networks:", "description": "Define custom networks for communication between services", "parameters": "my_network"},
-    {"command": "command:", "description": "Override the default command for the service", "parameters": "[\"python3\", \"app.py\"]"},
-    {"command": "docker compose up -d", "description": "Start services in detached mode (background)", "parameters": "--build"},
-    {"command": "docker compose down", "description": "Stop and remove all services and networks defined in the Compose file", "parameters": "--volumes"},
-    {"command": "docker compose ps", "description": "List the status of the services defined in the Compose file", "parameters": ""},
-    {"command": "docker compose logs", "description": "View the logs for services defined in the Compose file", "parameters": "--follow"},
-    {"command": "docker compose restart", "description": "Restart the services defined in the Compose file", "parameters": "service_name"},
+    {"command": "build: context: ./backend, dockerfile: Dockerfile", "description": "Specify build options for the service, including context and Dockerfile"},
+    {"command": "image: nginx:latest", "description": "Specify the Docker image to use for the service"},
+    {"command": "ports: '80:80', '5000:5000'", "description": "Map ports from the host to the container"},
+    {"command": "volumes: './data:/data', 'db_data:/var/lib/mysql'", "description": "Mount host directories or volumes to the container"},
+    {"command": "environment: MYSQL_ROOT_PASSWORD: example", "description": "Set environment variables for the service"},
+    {"command": "depends_on: backend", "description": "Specify dependencies between services, ensuring one starts before another"},
+    {"command": "networks: my_network", "description": "Define custom networks for communication between services"},
+    {"command": "command: [\"python3\", \"app.py\"]", "description": "Override the default command for the service"},
+    {"command": "docker compose up -d --build", "description": "Start services in detached mode (background)"},
+    {"command": "docker compose down --volumes", "description": "Stop and remove all services and networks defined in the Compose file"},
+    {"command": "docker compose ps", "description": "List the status of the services defined in the Compose file"},
+    {"command": "docker compose logs --follow", "description": "View the logs for services defined in the Compose file"},
+    {"command": "docker compose restart service_name", "description": "Restart the services defined in the Compose file"},
 ]
 
 # commands = tr_commands
@@ -146,8 +147,8 @@ docker_compose_commands = [
 # commands = process_commands
 # commands = archive_commands
 # commands = docker_swarm_commands
-commands = get_docker_nginx_swarm_commands()
-commands = docker_compose_commands
+commands = get_commands('dockerfile_more_comands')
+# commands = docker_compose_commands
 # + uniq_commands
 
 def print_colored(word, wordColor):
@@ -177,8 +178,10 @@ def quiz_user():
         if user_answer.lower() == question['command'].lower():
             print_colored("Correct!", "green")
             score += 1
+            update_count_csv(question['id'], question['command'], True)
         else:
             print_colored(f"The correct answer is: {question['command']}", "blue")
+            update_count_csv(question['id'], question['command'], False)
 
     print(f"Your final score: {score}/{total_questions}")
 

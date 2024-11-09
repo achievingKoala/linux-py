@@ -14,13 +14,13 @@ def read_docker_data(file_path='csv/dockerData.csv'):
         print(f"An error occurred: {e}")
         return None
 
-def get_docker_nginx_swarm_commands():
+def get_commands(command_group='docker_swarm_commands'):
     df = read_docker_data()
     if df is not None:
-        return df[df['command_group'] == 'docker_nginx_swarm_commands'].to_dict(orient='records')
+        return df[df['command_group'] == command_group].to_dict(orient='records')
     return []
 
-print(get_docker_nginx_swarm_commands())
+print(get_commands())
 
 
 

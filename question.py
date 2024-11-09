@@ -164,7 +164,7 @@ redhat_commands = [
     {"command": "rpm -qi package_name", "description": "Display information about an installed package"}
 ]
 
-high_frequency_commands = [
+net_high_frequency_commands = [
     {"command": "ping host", "description": "Test the connectivity to a host"},
     {"command": "ssh user@hostname", "description": "Securely log in to a remote host"},
     {"command": "scp file user@host:path", "description": "Securely copy a file to a remote host"},
@@ -174,7 +174,7 @@ high_frequency_commands = [
     {"command": "netstat -tuln", "description": "Show TCP/UDP listening ports"},
 ]
 
-low_frequency_commands = [
+net_low_frequency_commands = [
     {"command": "traceroute host", "description": "Trace the route to a host"},
     {"command": "ftp hostname", "description": "Connect to an FTP server"},
     {"command": "sftp user@hostname", "description": "Securely connect to an SFTP server"},

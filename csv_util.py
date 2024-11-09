@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from question import docker_swarm_commands, docker_nginx_swarm_commands
+from c_game import dockerfile_commands, docker_compose_commands, dockerfile_more_comands
 
 docker_swarm_commands = [
     {"command": "docker swarm init", "description": "Initialize a new Docker Swarm"},
@@ -49,7 +50,7 @@ def save_commands_to_csv(commands_array, array_name, file_path='csv/dockerData.c
             ])
 
 # Example usage with docker_swarm_commands
-save_commands_to_csv(docker_nginx_swarm_commands, 'docker_nginx_swarm_commands')
+save_commands_to_csv(dockerfile_more_comands, 'dockerfile_more_comands')
 
 
 
@@ -78,14 +79,5 @@ def add_data(new_data, file_path="csv/command_data.csv"):
     
     return df
 
-# 示例使用
-if __name__ == "__main__":
-    # 示例数据
-    new_data = [
-        {"name": "Alice", "age": 25},
-        {"name": "Bob", "age": 30}
-    ]
-    
-    # 调用函数
-    # result = add_data(new_data)
+
 

@@ -1,3 +1,33 @@
-command_id,command,is_correct
-33,docker run -d --name container_name image_name[:tag],True
-33,docker run -d --name container_name image_name[:tag],True
+id,command_id,command,is_correct
+4,19,docker service scale nginx_cluster=5,True
+5,18,docker service ps nginx_cluster,True
+6,16,docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx,True
+7,15,docker swarm init,True
+8,21,docker service rm nginx_cluster,True
+9,56,docker run -d --name container_name image_name[:tag],True
+10,12,docker stack ls,False
+11,3,docker node ls,True
+12,6,docker service ls,True
+13,5,docker service create --name service-name --replicas number image,True
+14,1,docker swarm init,True
+15,56,docker run -d --name container_name image_name[:tag],True
+16,56,docker run -d --name container_name image_name[:tag],True
+17,28,VOLUME /data,False
+18,25,RUN apt-get update && apt-get install -y python3,True
+19,26,EXPOSE 80,False
+20,27,"CMD [""python3"", ""app.py""]",False
+21,22,FROM ubuntu:20.04,True
+22,56,docker run -d --name container_name image_name[:tag],True
+23,56,docker run -d --name container_name image_name[:tag],True
+24,39,docker compose up -d --build,True
+25,30,services:,False
+26,43,docker compose restart service_name,True
+27,35,environment: MYSQL_ROOT_PASSWORD: example,True
+28,31,"build: context: ./backend, dockerfile: Dockerfile",False
+29,56,docker run -d --name container_name image_name[:tag],True
+30,56,docker run -d --name container_name image_name[:tag],True
+31,46,"ENTRYPOINT [""python3"", ""app.py""]",False
+32,48,USER appuser,True
+33,49,ARG VERSION=1.0,True
+34,45,ADD package.tar.gz /app,True
+35,44,"LABEL version=""1.0""",True

@@ -20,3 +20,32 @@ id,command_group,command,description
 19,docker_nginx_swarm_commands,docker service scale nginx_cluster=5,Scale the Nginx service to 5 replicas
 20,docker_nginx_swarm_commands,docker service update --image nginx:latest nginx_cluster,Update the Nginx service to use the latest image
 21,docker_nginx_swarm_commands,docker service rm nginx_cluster,Remove the Nginx service from the Swarm
+22,dockerfile_commands,FROM ubuntu:20.04,Specify the base image for the Dockerfile
+23,dockerfile_commands,WORKDIR /app,Set the working directory for commands in the Dockerfile
+24,dockerfile_commands,COPY . /app,Copy files from the host to the container
+25,dockerfile_commands,RUN apt-get update && apt-get install -y python3,Execute commands to install dependencies
+26,dockerfile_commands,EXPOSE 80,Expose a port to allow external access to the container
+27,dockerfile_commands,"CMD [""python3"", ""app.py""]",Set the default command to run when the container starts
+28,dockerfile_commands,VOLUME /data,Define a volume for shared data between host and container
+29,docker_compose_commands,version: '3.8',Specify the version of the Docker Compose file format
+30,docker_compose_commands,services:,Define the services that make up the application
+31,docker_compose_commands,"build: context: ./backend, dockerfile: Dockerfile","Specify build options for the service, including context and Dockerfile"
+32,docker_compose_commands,image: nginx:latest,Specify the Docker image to use for the service
+33,docker_compose_commands,"ports: '80:80', '5000:5000'",Map ports from the host to the container
+34,docker_compose_commands,"volumes: './data:/data', 'db_data:/var/lib/mysql'",Mount host directories or volumes to the container
+35,docker_compose_commands,environment: MYSQL_ROOT_PASSWORD: example,Set environment variables for the service
+36,docker_compose_commands,depends_on: backend,"Specify dependencies between services, ensuring one starts before another"
+37,docker_compose_commands,networks: my_network,Define custom networks for communication between services
+38,docker_compose_commands,"command: [""python3"", ""app.py""]",Override the default command for the service
+39,docker_compose_commands,docker compose up -d --build,Start services in detached mode (background)
+40,docker_compose_commands,docker compose down --volumes,Stop and remove all services and networks defined in the Compose file
+41,docker_compose_commands,docker compose ps,List the status of the services defined in the Compose file
+42,docker_compose_commands,docker compose logs --follow,View the logs for services defined in the Compose file
+43,docker_compose_commands,docker compose restart service_name,Restart the services defined in the Compose file
+44,dockerfile_more_comands,"LABEL version=""1.0""",Add metadata to the image
+45,dockerfile_more_comands,ADD package.tar.gz /app,Copy and extract a tar file from the host to the container
+46,dockerfile_more_comands,"ENTRYPOINT [""python3"", ""app.py""]",Define the main executable when the container starts
+47,dockerfile_more_comands,ENV APP_ENV production,Set environment variables
+48,dockerfile_more_comands,USER appuser,Specify the user to run the container with
+49,dockerfile_more_comands,ARG VERSION=1.0,Define a build-time variable
+50,dockerfile_more_comands,HEALTHCHECK CMD curl --fail http://localhost || exit 1,Set a health check command to verify container status
