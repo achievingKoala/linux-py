@@ -1,8 +1,10 @@
 import random
-from query_csv import get_commands
+from query_csv import query_joined_data
 from record_csv import update_count_csv
 
-commands = get_commands('grep_commands')
+# commands = get_commands('grep_commands')
+command_a=['process_commands']
+commands = query_joined_data(command_group = command_a)
 
 def print_colored(word, wordColor):
     color_codes = {
@@ -25,8 +27,8 @@ def quiz_user():
     # questions = commands 
 
     for question in questions:  # Iterate over unique questions
-        print(f"Command description: '{question['description']}'")
-        
+        print(f"Command description: '{question['description']}'", end = ',')
+        print(question['pCount'])
         user_answer = input("What is the command? ")
         
         if user_answer.lower() == question['command'].lower():
@@ -38,6 +40,11 @@ def quiz_user():
             update_count_csv(question['id'], question['command'], False)
 
     print(f"Your final score: {score}/{total_questions}")
+    print_result(query_joined_data(command_group = command_a))
+
+def print_result(res):
+    for item in res:
+        print(item)
 
 if __name__ == "__main__":
     print("Welcome to the Linux Commands Quiz Game!")
