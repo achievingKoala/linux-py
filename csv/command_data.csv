@@ -122,3 +122,40 @@ id,command_group,command,description
 121,docker_basic_commands,docker restart container_id_or_name,Restart a container
 122,docker_basic_commands,docker rm container_id_or_name,Remove a container by ID or name
 123,docker_basic_commands,docker exec -it container_id_or_name /bin/bash,Access a running container with an interactive terminal
+124,k8s_advanced_debugging_commands,kubectl top nodes,Display resource usage for nodes
+125,k8s_advanced_debugging_commands,kubectl top pods,Display resource usage for pods
+126,k8s_advanced_debugging_commands,kubectl describe node node_name,Show detailed information about a node
+127,k8s_advanced_debugging_commands,kubectl get events,List events in the cluster
+128,k8s_advanced_debugging_commands,kubectl get pod pod_name -o yaml,Display the YAML definition of a pod
+129,k8s_cluster_info_commands,kubectl cluster-info,Display cluster information
+130,k8s_cluster_info_commands,kubectl get nodes,List all nodes in the cluster
+131,k8s_cluster_info_commands,kubectl get namespaces,List all namespaces in the cluster
+132,k8s_cluster_info_commands,kubectl config get-contexts,List available contexts
+133,k8s_cluster_info_commands,kubectl config use-context context_name,Switch to the specified context
+134,k8s_config_and_secret_management_commands,kubectl create configmap my-config --from-file=config.txt,Create a ConfigMap from a file
+135,k8s_config_and_secret_management_commands,kubectl get configmaps,List all ConfigMaps in the current namespace
+136,k8s_config_and_secret_management_commands,kubectl describe configmap my-config,Show detailed information about a ConfigMap
+137,k8s_config_and_secret_management_commands,kubectl delete configmap my-config,Delete a ConfigMap
+138,k8s_config_and_secret_management_commands,kubectl create secret generic my-secret --from-literal=password=YOUR_PASSWORD,Create a Secret
+139,k8s_config_and_secret_management_commands,kubectl get secrets,List all Secrets in the current namespace
+140,k8s_config_and_secret_management_commands,kubectl describe secret my-secret,Show detailed information about a Secret
+141,k8s_config_and_secret_management_commands,kubectl delete secret my-secret,Delete a Secret
+142,k8s_deployment_management_commands,kubectl create deployment nginx --image=nginx,Create a deployment with the nginx image
+143,k8s_deployment_management_commands,kubectl get deployments,List all deployments in the current namespace
+144,k8s_deployment_management_commands,kubectl describe deployment deployment_name,Show detailed information about a deployment
+145,k8s_deployment_management_commands,kubectl delete deployment deployment_name,Delete a deployment
+146,k8s_pod_management_commands,kubectl get pods,List all pods in the current namespace
+147,k8s_pod_management_commands,kubectl get pods --all-namespaces,List all pods across all namespaces
+148,k8s_pod_management_commands,kubectl describe pod pod_name,Show detailed information about a pod
+149,k8s_pod_management_commands,kubectl logs pod_name,View the logs of a pod
+150,k8s_pod_management_commands,kubectl logs pod_name -c container_name,View the logs of a specific container in a pod
+151,k8s_pod_management_commands,kubectl exec -it pod_name -- /bin/sh,"Execute a command in a pod (e.g., open a shell)"
+152,k8s_resource_management_commands,kubectl apply -f config.yaml,Apply a configuration file to create or update resources
+153,k8s_resource_management_commands,kubectl delete -f config.yaml,Delete resources defined in a configuration file
+154,k8s_resource_management_commands,kubectl get all,List all resources in the current namespace
+155,k8s_resource_management_commands,kubectl scale deployment nginx --replicas=3,Scale a deployment to 3 replicas
+156,k8s_resource_management_commands,kubectl autoscale deployment nginx --min=2 --max=5 --cpu-percent=80,Set up autoscaling for a deployment
+157,k8s_service_management_commands,kubectl expose deployment nginx --type=NodePort --port=80,Expose a deployment as a NodePort service
+158,k8s_service_management_commands,kubectl get services,List all services in the current namespace
+159,k8s_service_management_commands,kubectl describe service service_name,Show detailed information about a service
+160,k8s_service_management_commands,kubectl delete service service_name,Delete a service
