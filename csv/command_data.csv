@@ -110,3 +110,15 @@ id,command_group,command,description
 109,grep_commands,grep -w 'keyword' filename,Match only whole words for 'keyword'
 110,grep_commands,grep -E 'regex' filename,Use extended regular expressions for complex matching patterns
 111,grep_commands,grep --color 'keyword' filename,Highlight 'keyword' in output for easier identification
+112,docker_basic_commands,docker search image_name,Search for an image in Docker Hub
+113,docker_basic_commands,docker pull mysql:tag,Download the MySQL image with a specific tag from Docker Hub
+114,docker_basic_commands,docker images,List all local images
+115,docker_basic_commands,docker rmi image_id_or_name,Remove an image by ID or name
+116,docker_basic_commands,docker run -d --name container_name image_name[:tag],Create and start a container in detached mode
+117,docker_basic_commands,docker ps,List all running containers
+118,docker_basic_commands,docker ps -a,"List all containers, including stopped ones"
+119,docker_basic_commands,docker start container_id_or_name,Start a stopped container
+120,docker_basic_commands,docker stop container_id_or_name,Stop a running container
+121,docker_basic_commands,docker restart container_id_or_name,Restart a container
+122,docker_basic_commands,docker rm container_id_or_name,Remove a container by ID or name
+123,docker_basic_commands,docker exec -it container_id_or_name /bin/bash,Access a running container with an interactive terminal
