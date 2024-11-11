@@ -1,3 +1,22 @@
+sed_commands = [
+    {"command": "sed 's/old/new/g' file.txt", "description": "Replace all occurrences of 'old' with 'new' in file.txt"},
+    {"command": "sed -n '3p' file.txt", "description": "Print the third line of file.txt"},
+    {"command": "sed '1d' file.txt", "description": "Delete the first line of file.txt"},
+    {"command": "sed -e 's/foo/bar/' -e 's/baz/qux/'", "description": "Replace 'foo' with 'bar' and 'baz' with 'qux'"},
+    {"command": "sed -i 's/old/new/g' file.txt", "description": "Edit file.txt in place, replacing 'old' with 'new'"},
+    {"command": "sed -n '/pattern/p' file.txt", "description": "Print lines that match a specified pattern"},
+]
+
+awk_commands = [
+    {"command": "awk '{print $1}'", "description": 'Print the first field of each input line'},
+    {"command": "awk -F, '{print $2}' file.csv", "description": 'Print the second field of a CSV file'},
+    {"command": "awk '/pattern/ {print}'", "description": 'Print lines matching a specified pattern'},
+    {"command": "awk '{sum += $1} END {print sum}'", "description": 'Sum the first field of all input lines'},
+    {"command": "awk '{if ($1 > 10) print}'", "description": 'Print lines where the first field is greater than 10'},
+    {"command": "awk '{print NR, $0}'", "description": 'Print line number followed by the entire line'},
+    {"command": "awk -F: '{print $1}' /etc/passwd", "description": 'Print the usernames from the /etc/passwd file'},
+]
+
 grep_commands = [
     {"command": "grep 'keyword' filename", "description": "Search for lines containing 'keyword' in the specified file"},
     {"command": "grep -r 'keyword' directory", "description": "Recursively search for 'keyword' in all files under a directory"},
@@ -10,7 +29,6 @@ grep_commands = [
     {"command": "grep -E 'regex' filename", "description": "Use extended regular expressions for complex matching patterns"},
     {"command": "grep --color 'keyword' filename", "description": "Highlight 'keyword' in output for easier identification"}
 ]
-
 
 cut_commands = [
     {"command": "cut -c 1-5 filename.txt", "description": "Extract the first five characters from each line in 'filename.txt'"},
@@ -46,7 +64,6 @@ sort_commands = [
 ]
 
 # {"command": "tr '[:lower:]' '[:upper:]' < filename.txt", "description": "Convert all lowercase to uppercase using character classes in 'filename.txt'"},
-
 tr_commands = [
     {"command": "tr 'a-z' 'A-Z' < filename.txt", "description": "Convert lowercase letters to uppercase in 'filename.txt'"},
     {"command": "tr -d 'a' < filename.txt", "description": "Delete all occurrences of the letter 'a' in 'filename.txt'"},
@@ -55,14 +72,16 @@ tr_commands = [
     {"command": "tr -cd '0-9' < filename.txt", "description": "Remove all characters except digits in 'filename.txt'"},
 ]
 
-shell_commands = [
+shell_var_commands = [
     {"command": 'str="Hello, Shell"', "description": "Define a string variable 'str' with the value 'Hello, Shell'"},
     {"command": 'num1=5', "description": "Define an integer variable 'num1' with value 5"},
     {"command": 'num2=3', "description": "Define an integer variable 'num2' with value 3"},
     {"command": 'sum=$((num1 + num2))', "description": "Perform integer addition and assign result to 'sum'"},
     {"command": 'arr=("apple" "banana" "cherry")', "description": "Define an array 'arr' with values 'apple', 'banana', 'cherry'"},
     {"command": 'echo ${arr[1]}', "description": "Output the second element of 'arr', which is 'banana'"},
+]
 
+shell_loop_command = [
     {"command": 'if [ "$num" -gt 5 ]; then echo "num is greater than 5"; else echo "num is less than or equal to 5"; fi', 
      "description": "Conditionally check if 'num' is greater than 5, output result accordingly"},
     {"command": 'if [ "$str" = "hello" ]; then echo "Strings are equal"; fi', 
@@ -213,3 +232,13 @@ docker_nginx_swarm_commands = [
     {"command": "docker service rm nginx_cluster", "description": "Remove the Nginx service from the Swarm"},
 ]
 
+# {"command": "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash", "description": "Install k3d tool for managing K3s clusters in Docker"},
+    {"command": "docker --version", "description": "Check Docker installation"},
+    {"command": "k3d version", "description": "Check k3d installation"},
+    {"command": "k3d cluster create mycluster", "description": "Create a K3s cluster named 'mycluster'"},
+    {"command": "kubectl get nodes", "description": "Check the status of nodes in the K3s cluster"},
+    {"command": "kubectl get pods --all-namespaces", "description": "List all pods across all namespaces"},
+    {"command": "kubectl create deployment nginx --image=nginx", "description": "Deploy an Nginx application"},
+    {"command": "kubectl get pods", "description": "Check the status of the deployed Nginx pod"},
+    {"command": "k3d cluster delete mycluster", "description": "Delete the K3s cluster named 'mycluster'"},
+]
