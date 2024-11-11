@@ -1,0 +1,112 @@
+id,command_group,command,description
+1,docker_swarm_commands,docker swarm init,Initialize a new Docker Swarm
+2,docker_swarm_commands,docker swarm join --token token manager-ip:port,Join a node to the Swarm using the provided token
+3,docker_swarm_commands,docker node ls,List all nodes in the Swarm
+4,docker_swarm_commands,docker node rm node-id,Remove a node from the Swarm by node ID
+5,docker_swarm_commands,docker service create --name service-name --replicas number image,Create a new service in the Swarm with specified replicas
+6,docker_swarm_commands,docker service ls,List all services in the Swarm
+7,docker_swarm_commands,docker service scale service-name=replicas,Scale a service to the specified number of replicas
+8,docker_swarm_commands,docker service update --image new-image service-name,Update a service to use a new image
+9,docker_swarm_commands,docker service rm service-name,Remove a service from the Swarm
+10,docker_swarm_commands,docker stack deploy -c compose-file stack-name,Deploy a stack using a Docker Compose file
+11,docker_swarm_commands,docker stack rm stack-name,Remove a stack from the Swarm
+12,docker_swarm_commands,docker stack ls,List all stacks in the Swarm
+13,docker_swarm_commands,docker stack services stack-name,List all services in a specific stack
+14,docker_swarm_commands,docker node update --availability drain/pause/active node-id,Update the availability status of a node
+15,docker_nginx_swarm_commands,docker swarm init,Initialize a new Docker Swarm
+16,docker_nginx_swarm_commands,docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx,"Create an Nginx service with 3 replicas, exposing port 80"
+17,docker_nginx_swarm_commands,docker service ls,List all services to verify the deployment
+18,docker_nginx_swarm_commands,docker service ps nginx_cluster,Check the status and replica count of the Nginx service
+19,docker_nginx_swarm_commands,docker service scale nginx_cluster=5,Scale the Nginx service to 5 replicas
+20,docker_nginx_swarm_commands,docker service update --image nginx:latest nginx_cluster,Update the Nginx service to use the latest image
+21,docker_nginx_swarm_commands,docker service rm nginx_cluster,Remove the Nginx service from the Swarm
+22,dockerfile_commands,FROM ubuntu:20.04,Specify the base image for the Dockerfile
+23,dockerfile_commands,WORKDIR /app,Set the working directory for commands in the Dockerfile
+24,dockerfile_commands,COPY . /app,Copy files from the host to the container
+25,dockerfile_commands,RUN apt-get update && apt-get install -y python3,Execute commands to install dependencies
+26,dockerfile_commands,EXPOSE 80,Expose a port to allow external access to the container
+27,dockerfile_commands,"CMD [""python3"", ""app.py""]",Set the default command to run when the container starts
+28,dockerfile_commands,VOLUME /data,Define a volume for shared data between host and container
+29,docker_compose_commands,version: '3.8',Specify the version of the Docker Compose file format
+30,docker_compose_commands,services:,Define the services that make up the application
+31,docker_compose_commands,"build: context: ./backend, dockerfile: Dockerfile","Specify build options for the service, including context and Dockerfile"
+32,docker_compose_commands,image: nginx:latest,Specify the Docker image to use for the service
+33,docker_compose_commands,"ports: '80:80', '5000:5000'",Map ports from the host to the container
+34,docker_compose_commands,"volumes: './data:/data', 'db_data:/var/lib/mysql'",Mount host directories or volumes to the container
+35,docker_compose_commands,environment: MYSQL_ROOT_PASSWORD: example,Set environment variables for the service
+36,docker_compose_commands,depends_on: backend,"Specify dependencies between services, ensuring one starts before another"
+37,docker_compose_commands,networks: my_network,Define custom networks for communication between services
+38,docker_compose_commands,"command: [""python3"", ""app.py""]",Override the default command for the service
+39,docker_compose_commands,docker compose up -d --build,Start services in detached mode (background)
+40,docker_compose_commands,docker compose down --volumes,Stop and remove all services and networks defined in the Compose file
+41,docker_compose_commands,docker compose ps,List the status of the services defined in the Compose file
+42,docker_compose_commands,docker compose logs --follow,View the logs for services defined in the Compose file
+43,docker_compose_commands,docker compose restart service_name,Restart the services defined in the Compose file
+44,dockerfile_more_comands,"LABEL version=""1.0""",Add metadata to the image
+45,dockerfile_more_comands,ADD package.tar.gz /app,Copy and extract a tar file from the host to the container
+46,dockerfile_more_comands,"ENTRYPOINT [""python3"", ""app.py""]",Define the main executable when the container starts
+47,dockerfile_more_comands,ENV APP_ENV production,Set environment variables
+48,dockerfile_more_comands,USER appuser,Specify the user to run the container with
+49,dockerfile_more_comands,ARG VERSION=1.0,Define a build-time variable
+50,dockerfile_more_comands,HEALTHCHECK CMD curl --fail http://localhost || exit 1,Set a health check command to verify container status
+51,net_high_frequency_commands,ping host,Test the connectivity to a host
+52,net_high_frequency_commands,ssh user@hostname,Securely log in to a remote host
+53,net_high_frequency_commands,scp file user@host:path,Securely copy a file to a remote host
+54,net_high_frequency_commands,wget url,Download a file from a specified URL
+55,net_high_frequency_commands,ip addr show,Display all network interfaces and their addresses
+56,net_high_frequency_commands,netstat -a,Show all connections and listening ports
+57,net_high_frequency_commands,netstat -tuln,Show TCP/UDP listening ports
+58,net_low_frequency_commands,traceroute host,Trace the route to a host
+59,net_low_frequency_commands,ftp hostname,Connect to an FTP server
+60,net_low_frequency_commands,sftp user@hostname,Securely connect to an SFTP server
+61,net_low_frequency_commands,ip route show,Display the routing table
+62,net_low_frequency_commands,wget -r url,Recursively download a website
+63,net_low_frequency_commands,ping -c 4 hostname,Ping a host 4 times
+64,net_low_frequency_commands,ftp> get file,Download a file via FTP
+65,net_low_frequency_commands,scp -r directory user@host:path,Recursively copy a directory to a remote host
+66,net_low_frequency_commands,sftp> put file,Upload a file via SFTP
+67,process_commands,ps aux,Display all running processes for all users
+68,process_commands,ps -ef | grep firefox,Filter and display all processes related to Firefox
+69,process_commands,top,Open a real-time view of system resource usage and processes
+70,process_commands,htop,Interactive process viewer with a user-friendly interface
+71,process_commands,kill 1234,Terminate the process with PID 1234
+72,process_commands,kill -9 1234,Forcefully terminate the process with PID 1234
+73,process_commands,killall firefox,Terminate all processes named Firefox
+74,process_commands,pkill -u username,Kill all processes for the specified user
+75,process_commands,./long_running_script.sh &,Run a script in the background
+76,process_commands,fg %1,Bring the background job with ID 1 to the foreground
+77,process_commands,jobs,List all jobs for the current user
+78,process_commands,nice -n 10 ./my_script.sh,Run 'my_script.sh' with a priority of 10
+79,process_commands,renice -5 -p 1234,Change the priority of the process with PID 1234 to -5
+80,process_commands,strace -p 1234,Trace the system calls of the process with PID 1234
+81,user_group_commands,sudo useradd username,Add a new user 'username'
+82,user_group_commands,sudo userdel username,Delete the user 'username'
+83,user_group_commands,sudo usermod -aG groupname username,Add user 'username' to the group 'groupname'
+84,user_group_commands,whoami,Show the currently logged-in username
+85,user_group_commands,cat /etc/passwd,View information about all users on the system
+86,user_group_commands,sudo groupadd groupname,Add a new group 'groupname'
+87,user_group_commands,sudo groupdel groupname,Delete the group 'groupname'
+88,user_group_commands,sudo groupmod -n newgroupname oldgroupname,Rename the group from 'oldgroupname' to 'newgroupname'
+89,user_group_commands,groups username,Show all groups that user 'username' belongs to
+90,user_group_commands,cat /etc/group,View information about all groups on the system
+91,user_group_commands,ls -l,Show file and directory permissions
+92,user_group_commands,chmod 755 filename,Change the permissions of 'filename' to 755
+93,user_group_commands,sudo chown username:groupname filename,Change the owner of 'filename' to 'username' and group to 'groupname'
+94,k3s_commands,docker --version,Check Docker installation
+95,k3s_commands,k3d version,Check k3d installation
+96,k3s_commands,k3d cluster create mycluster,Create a K3s cluster named 'mycluster'
+97,k3s_commands,kubectl get nodes,Check the status of nodes in the K3s cluster
+98,k3s_commands,kubectl get pods --all-namespaces,List all pods across all namespaces
+99,k3s_commands,kubectl create deployment nginx --image=nginx,Deploy an Nginx application
+100,k3s_commands,kubectl get pods,Check the status of the deployed Nginx pod
+101,k3s_commands,k3d cluster delete mycluster,Delete the K3s cluster named 'mycluster'
+102,grep_commands,grep 'keyword' filename,Search for lines containing 'keyword' in the specified file
+103,grep_commands,grep -r 'keyword' directory,Recursively search for 'keyword' in all files under a directory
+104,grep_commands,grep -i 'keyword' filename,"Search for 'keyword' in the specified file, ignoring case"
+105,grep_commands,grep -n 'keyword' filename,Show line numbers for lines containing 'keyword'
+106,grep_commands,grep -v 'keyword' filename,Print lines that do not contain 'keyword'
+107,grep_commands,grep -l 'keyword' *,List names of files containing 'keyword'
+108,grep_commands,grep -c 'keyword' filename,Count the occurrences of 'keyword' in the file
+109,grep_commands,grep -w 'keyword' filename,Match only whole words for 'keyword'
+110,grep_commands,grep -E 'regex' filename,Use extended regular expressions for complex matching patterns
+111,grep_commands,grep --color 'keyword' filename,Highlight 'keyword' in output for easier identification
