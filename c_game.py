@@ -1,10 +1,15 @@
 import random
-from query_csv import query_joined_data
+from query_csv import query_joined_data, query_fuzzy_data
 from record_csv import update_count_csv
 
 # commands = get_commands('grep_commands')
-command_a=['process_commands']
-commands = query_joined_data(command_group = command_a)
+# command_a=['k8s_cluster_info_commands', 'k8s_resource_management_commands', 'k8s_deployment_management_commands', 'k8s_pod_management_commands']
+# command_all=['net_high_frequency_commands', 'net_low_frequency_commands','process_commands']
+# command_all=['grep_commands','find_commands', 'redhat_package_commands']
+# command_all=['sed_commands', 'tr']
+command_all=['shell']
+commands = query_joined_data(command_group = command_all)
+commands = query_fuzzy_data(command_all)
 
 def print_colored(word, wordColor):
     color_codes = {
@@ -28,7 +33,7 @@ def quiz_user():
 
     for question in questions:  # Iterate over unique questions
         print(f"Command description: '{question['description']}'", end = ',')
-        print(question['pCount'])
+        print(f"count: {question['pCount']}")
         user_answer = input("What is the command? ")
         
         if user_answer.lower() == question['command'].lower():
@@ -40,7 +45,7 @@ def quiz_user():
             update_count_csv(question['id'], question['command'], False)
 
     print(f"Your final score: {score}/{total_questions}")
-    print_result(query_joined_data(command_group = command_a))
+    # print_result(query_joined_data(command_group = command_a))
 
 def print_result(res):
     for item in res:

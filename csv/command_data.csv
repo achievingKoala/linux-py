@@ -159,3 +159,95 @@ id,command_group,command,description
 158,k8s_service_management_commands,kubectl get services,List all services in the current namespace
 159,k8s_service_management_commands,kubectl describe service service_name,Show detailed information about a service
 160,k8s_service_management_commands,kubectl delete service service_name,Delete a service
+161,find_commands,find /dir -name 'filename',Find a file with a specific name in a dir
+162,find_commands,find /dir -type f,Find all regular files in a dir
+163,find_commands,find /dir -type d,Find all directories in a dir
+164,find_commands,find /dir -size +50M,Find files larger than 50MB in a dir
+165,find_commands,find /dir -size -10k,Find files smaller than 10KB in a dir
+166,find_commands,find /dir -mtime -7,Find files modified within the last 7 days
+167,find_commands,find /dir -atime +30,Find files accessed more than 30 days ago
+168,find_commands,find /dir -perm 644,Find files with permissions set to 644
+169,find_commands,find /dir -user username,Find files owned by a specific user
+170,find_commands,find /dir -group groupname,Find files owned by a specific group
+171,find_commands,find /dir -maxdepth 2 -name '*.conf',"Find .conf files in a dir, limiting search to a depth of 2"
+172,find_commands,find /dir -exec rm {} \;,"Find files and execute a command on each (e.g., delete matching files)"
+173,sed_commands,sed 's/old/new/g' file.txt,Replace all occurrences of 'old' with 'new' in file.txt
+174,sed_commands,sed -n '3p' file.txt,Print the third line of file.txt
+175,sed_commands,sed '1d' file.txt,Delete the first line of file.txt
+176,sed_commands,sed -e 's/foo/bar/' -e 's/baz/qux/',Replace 'foo' with 'bar' and 'baz' with 'qux'
+177,sed_commands,sed -i 's/old/new/g' file.txt,"Edit file.txt in place, replacing 'old' with 'new'"
+178,sed_commands,sed -n '/pattern/p' file.txt,Print lines that match a specified pattern
+179,awk_commands,awk '{print $1}',Print the first field of each input line
+180,awk_commands,"awk -F, '{print $2}' file.csv",Print the second field of a CSV file
+181,awk_commands,awk '/pattern/ {print}',Print lines matching a specified pattern
+182,awk_commands,awk '{sum += $1} END {print sum}',Sum the first field of all input lines
+183,awk_commands,awk '{if ($1 > 10) print}',Print lines where the first field is greater than 10
+184,awk_commands,"awk '{print NR, $0}'",Print line number followed by the entire line
+185,awk_commands,awk -F: '{print $1}' /etc/passwd,Print the usernames from the /etc/passwd file
+186,cut_commands,cut -c 1-5 filename.txt,Extract the first five characters from each line in 'filename.txt'
+187,cut_commands,"cut -d ',' -f 2 data.csv",Extract the second field from each line in 'data.csv' using a comma as the delimiter
+188,cut_commands,"cut -d ' ' -f 1,3,5 report.txt","Extract the first, third, and fifth fields from each line in 'report.txt'"
+189,cut_commands,cut -d ':' -f 1 /etc/passwd,Extract the usernames from the '/etc/passwd' file
+190,cat_commands,cat filename.txt,Display the contents of 'filename.txt'
+191,cat_commands,cat file1.txt file2.txt,Concatenate and display the contents of 'file1.txt' and 'file2.txt'
+192,cat_commands,cat -n filename.txt,Display the contents of 'filename.txt' with line numbers
+193,cat_commands,cat -e filename.txt,Display the contents of 'filename.txt' with a dollar sign at the end of each line
+194,cat_commands,cat filename.txt | grep 'keyword',Search for 'keyword' in the contents of 'filename.txt' using a pipe
+195,uniq_commands,uniq filename.txt,Remove adjacent duplicate lines in 'filename.txt'
+196,uniq_commands,uniq -c filename.txt,Display unique lines in 'filename.txt' with count of occurrences
+197,uniq_commands,uniq -d filename.txt,Display only duplicate lines in 'filename.txt'
+198,uniq_commands,uniq -u filename.txt,Display only unique (non-duplicate) lines in 'filename.txt'
+199,tr_commands,tr 'a-z' 'A-Z' < filename.txt,Convert lowercase letters to uppercase in 'filename.txt'
+200,tr_commands,tr -d 'a' < filename.txt,Delete all occurrences of the letter 'a' in 'filename.txt'
+201,tr_commands,tr -s ' ' < filename.txt,Replace multiple spaces with a single space in 'filename.txt'
+202,tr_commands,tr ' ' '\n' < filename.txt,Replace spaces with newlines in 'filename.txt'
+203,tr_commands,tr -cd '0-9' < filename.txt,Remove all characters except digits in 'filename.txt'
+204,shell_var_commands,"str=""Hello, Shell""","Define a string variable 'str' with the value 'Hello, Shell'"
+205,shell_var_commands,num1=5,Define an integer variable 'num1' with value 5
+206,shell_var_commands,num2=3,Define an integer variable 'num2' with value 3
+207,shell_var_commands,sum=$((num1 + num2)),Perform integer addition and assign result to 'sum'
+208,shell_var_commands,"arr=(""apple"" ""banana"" ""cherry"")","Define an array 'arr' with values 'apple', 'banana', 'cherry'"
+209,shell_var_commands,echo ${arr[1]},"Output the second element of 'arr', which is 'banana'"
+210,shell_conditon_command,"if [ ""$num"" -gt 5 ]; then echo ""num is greater than 5""; else echo ""num is less than or equal to 5""; fi","Conditionally check if 'num' is greater than 5, output result accordingly"
+211,shell_conditon_command,"if [ ""$str"" = ""hello"" ]; then echo ""Strings are equal""; fi","Check if string 'str' is equal to 'hello', output result if true"
+212,shell_conditon_command,"if [ -e ""file.txt"" ]; then echo ""File exists""; fi","Check if 'file.txt' exists in the current directory, output result if true"
+213,shell_conditon_command,"greet() { echo ""Hello, $1!""; }",Define a function 'greet' that takes one argument and outputs a greeting
+214,shell_conditon_command,"greet ""Alice""",Call the function 'greet' with the argument 'Alice'
+215,shell_loop_command,"for item in ""${arr[@]}""; do echo ""$item""; done",Loop through each element in 'arr' and print it
+216,shell_loop_command,"for i in {1..5}; do echo ""$i""; done",Loop from 1 to 5 and print each number
+217,shell_loop_command,count=1,Initialize variable 'count' to 1
+218,shell_loop_command,"while [ $count -le 5 ]; do echo ""Count: $count""; count=$((count + 1)); done","While loop that increments 'count' from 1 to 5, printing it each time"
+219,shell_dic_commands,declare -A my_dict,Declare an associative array (dictionary) named 'my_dict'
+220,shell_dic_commands,"my_dict[""name""]=""Alice""",Set the key 'name' in 'my_dict' with value 'Alice'
+221,shell_dic_commands,"my_dict[""age""]=30",Set the key 'age' in 'my_dict' with value 30
+222,shell_dic_commands,"echo ${my_dict[""name""]}",Access and print the value associated with the key 'name' in 'my_dict'
+223,shell_dic_commands,"for key in ""${!my_dict[@]}""; do echo ""$key: ${my_dict[$key]}""; done",Loop through all key-value pairs in 'my_dict' and print each key and its associated value
+224,archive_commands,tar -czvf archive.tar.gz /path/to/directory,Create a compressed archive 'archive.tar.gz' from '/path/to/directory'
+225,archive_commands,tar -xzvf archive.tar.gz,Extract 'archive.tar.gz' in the current directory
+226,archive_commands,tar -xzvf archive.tar.gz -C /path/to/extract,Extract 'archive.tar.gz' to '/path/to/extract'
+227,archive_commands,gzip filename,Compress 'filename' to 'filename.gz'
+228,archive_commands,gunzip filename.gz,Decompress 'filename.gz' to its original form
+229,archive_commands,gzip -d filename.gz,Alternative command to decompress 'filename.gz'
+230,archive_commands,zip -r archive.zip /path/to/directory,Create a zip archive 'archive.zip' from '/path/to/directory'
+231,archive_commands,unzip archive.zip,Extract 'archive.zip' in the current directory
+232,archive_commands,unzip archive.zip -d /path/to/extract,Extract 'archive.zip' to '/path/to/extract'
+233,debian_package_commands,sudo apt update,Update the list of available packages
+234,debian_package_commands,sudo apt upgrade,Upgrade all installed packages to the latest versions
+235,debian_package_commands,sudo apt install package_name,Install a specific package
+236,debian_package_commands,sudo apt remove package_name,Remove a specific package
+237,debian_package_commands,sudo apt clean,Clear out the local repository of retrieved package files
+238,debian_package_commands,sudo apt autoremove,Remove packages that were automatically installed to satisfy dependencies for other packages and are no longer needed
+239,debian_package_commands,sudo dpkg -i package_name.deb,Install a .deb package file
+240,debian_package_commands,sudo dpkg -r package_name,Remove an installed package
+241,debian_package_commands,dpkg -l,List all installed packages
+242,redhat_package_commands,sudo yum check-update,Check for available package updates (CentOS 7 and earlier)
+243,redhat_package_commands,sudo yum install package_name,Install a specific package (CentOS 7 and earlier)
+244,redhat_package_commands,sudo yum remove package_name,Remove a specific package (CentOS 7 and earlier)
+245,redhat_package_commands,sudo yum update,Upgrade all installed packages (CentOS 7 and earlier)
+246,redhat_package_commands,sudo dnf check-update,Check for available package updates (CentOS 8 and Fedora)
+247,redhat_package_commands,sudo dnf install package_name,Install a specific package (CentOS 8 and Fedora)
+248,redhat_package_commands,sudo dnf remove package_name,Remove a specific package (CentOS 8 and Fedora)
+249,redhat_package_commands,sudo dnf upgrade,Upgrade all installed packages (CentOS 8 and Fedora)
+250,redhat_package_commands,sudo rpm -ivh package_name.rpm,Install an .rpm package file
+251,redhat_package_commands,sudo rpm -e package_name,Remove an installed package
+252,redhat_package_commands,rpm -qi package_name,Display information about an installed package

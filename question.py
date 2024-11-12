@@ -1,3 +1,18 @@
+find_commands = [
+    {"command": "find /dir -name 'filename'", "description": "Find a file with a specific name in a dir"},
+    {"command": "find /dir -type f", "description": "Find all regular files in a dir"},
+    {"command": "find /dir -type d", "description": "Find all directories in a dir"},
+    {"command": "find /dir -size +50M", "description": "Find files larger than 50MB in a dir"},
+    {"command": "find /dir -size -10k", "description": "Find files smaller than 10KB in a dir"},
+    {"command": "find /dir -mtime -7", "description": "Find files modified within the last 7 days"},
+    {"command": "find /dir -atime +30", "description": "Find files accessed more than 30 days ago"},
+    {"command": "find /dir -perm 644", "description": "Find files with permissions set to 644"},
+    {"command": "find /dir -user username", "description": "Find files owned by a specific user"},
+    {"command": "find /dir -group groupname", "description": "Find files owned by a specific group"},
+    {"command": "find /dir -maxdepth 2 -name '*.conf'", "description": "Find .conf files in a dir, limiting search to a depth of 2"},
+    {"command": "find /dir -exec rm {} \\;", "description": "Find files and execute a command on each (e.g., delete matching files)"},
+]
+
 sed_commands = [
     {"command": "sed 's/old/new/g' file.txt", "description": "Replace all occurrences of 'old' with 'new' in file.txt"},
     {"command": "sed -n '3p' file.txt", "description": "Print the third line of file.txt"},
@@ -9,7 +24,7 @@ sed_commands = [
 
 awk_commands = [
     {"command": "awk '{print $1}'", "description": 'Print the first field of each input line'},
-    {"command": "awk -F, '{print $2}' file.csv", "description": 'Print the second field of a CSV file'},
+    {"command": "awk -F, '{print $2}' file.csv", "description": 'Print the second field of a file.csv'},
     {"command": "awk '/pattern/ {print}'", "description": 'Print lines matching a specified pattern'},
     {"command": "awk '{sum += $1} END {print sum}'", "description": 'Sum the first field of all input lines'},
     {"command": "awk '{if ($1 > 10) print}'", "description": 'Print lines where the first field is greater than 10'},
@@ -81,7 +96,7 @@ shell_var_commands = [
     {"command": 'echo ${arr[1]}', "description": "Output the second element of 'arr', which is 'banana'"},
 ]
 
-shell_loop_command = [
+shell_conditon_command = [
     {"command": 'if [ "$num" -gt 5 ]; then echo "num is greater than 5"; else echo "num is less than or equal to 5"; fi', 
      "description": "Conditionally check if 'num' is greater than 5, output result accordingly"},
     {"command": 'if [ "$str" = "hello" ]; then echo "Strings are equal"; fi', 
@@ -89,6 +104,11 @@ shell_loop_command = [
     {"command": 'if [ -e "file.txt" ]; then echo "File exists"; fi', 
      "description": "Check if 'file.txt' exists in the current directory, output result if true"},
 
+    {"command": 'greet() { echo "Hello, $1!"; }', "description": "Define a function 'greet' that takes one argument and outputs a greeting"},
+    {"command": 'greet "Alice"', "description": "Call the function 'greet' with the argument 'Alice'"}
+]
+
+shell_loop_command = [
     {"command": 'for item in "${arr[@]}"; do echo "$item"; done', 
      "description": "Loop through each element in 'arr' and print it"},
     {"command": 'for i in {1..5}; do echo "$i"; done', 
@@ -97,9 +117,6 @@ shell_loop_command = [
     {"command": 'count=1', "description": "Initialize variable 'count' to 1"},
     {"command": 'while [ $count -le 5 ]; do echo "Count: $count"; count=$((count + 1)); done', 
      "description": "While loop that increments 'count' from 1 to 5, printing it each time"},
-
-    {"command": 'greet() { echo "Hello, $1!"; }', "description": "Define a function 'greet' that takes one argument and outputs a greeting"},
-    {"command": 'greet "Alice"', "description": "Call the function 'greet' with the argument 'Alice'"}
 ]
 
 shell_dic_commands = [
@@ -157,7 +174,7 @@ archive_commands = [
     {"command": "unzip archive.zip -d /path/to/extract", "description": "Extract 'archive.zip' to '/path/to/extract'"}
 ]
 
-debian_commands = [
+debian_package_commands = [
     {"command": "sudo apt update", "description": "Update the list of available packages"},
     {"command": "sudo apt upgrade", "description": "Upgrade all installed packages to the latest versions"},
     {"command": "sudo apt install package_name", "description": "Install a specific package"},
@@ -169,7 +186,7 @@ debian_commands = [
     {"command": "dpkg -l", "description": "List all installed packages"}
 ]
 
-redhat_commands = [
+redhat_package_commands = [
     {"command": "sudo yum check-update", "description": "Check for available package updates (CentOS 7 and earlier)"},
     {"command": "sudo yum install package_name", "description": "Install a specific package (CentOS 7 and earlier)"},
     {"command": "sudo yum remove package_name", "description": "Remove a specific package (CentOS 7 and earlier)"},
@@ -205,40 +222,4 @@ net_low_frequency_commands = [
     {"command": "sftp> put file", "description": "Upload a file via SFTP"}
 ]
 
-docker_swarm_commands = [
-    {"command": "docker swarm init", "description": "Initialize a new Docker Swarm"},
-    {"command": "docker swarm join --token token manager-ip:port", "description": "Join a node to the Swarm using the provided token"},
-    {"command": "docker node ls", "description": "List all nodes in the Swarm"},
-    {"command": "docker node rm node-id", "description": "Remove a node from the Swarm by node ID"},
-    {"command": "docker service create --name service-name --replicas number image", "description": "Create a new service in the Swarm with specified replicas"},
-    {"command": "docker service ls", "description": "List all services in the Swarm"},
-    {"command": "docker service scale service-name=replicas", "description": "Scale a service to the specified number of replicas"},
-    {"command": "docker service update --image new-image service-name", "description": "Update a service to use a new image"},
-    {"command": "docker service rm service-name", "description": "Remove a service from the Swarm"},
-    {"command": "docker stack deploy -c compose-file stack-name", "description": "Deploy a stack using a Docker Compose file"},
-    {"command": "docker stack rm stack-name", "description": "Remove a stack from the Swarm"},
-    {"command": "docker stack ls", "description": "List all stacks in the Swarm"},
-    {"command": "docker stack services stack-name", "description": "List all services in a specific stack"},
-    {"command": "docker node update --availability drain/pause/active node-id", "description": "Update the availability status of a node"},
-]
-
-docker_nginx_swarm_commands = [
-    {"command": "docker swarm init", "description": "Initialize a new Docker Swarm"},
-    {"command": "docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx", "description": "Create an Nginx service with 3 replicas, exposing port 80"},
-    {"command": "docker service ls", "description": "List all services to verify the deployment"},
-    {"command": "docker service ps nginx_cluster", "description": "Check the status and replica count of the Nginx service"},
-    {"command": "docker service scale nginx_cluster=5", "description": "Scale the Nginx service to 5 replicas"},
-    {"command": "docker service update --image nginx:latest nginx_cluster", "description": "Update the Nginx service to use the latest image"},
-    {"command": "docker service rm nginx_cluster", "description": "Remove the Nginx service from the Swarm"},
-]
-
 # {"command": "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash", "description": "Install k3d tool for managing K3s clusters in Docker"},
-    {"command": "docker --version", "description": "Check Docker installation"},
-    {"command": "k3d version", "description": "Check k3d installation"},
-    {"command": "k3d cluster create mycluster", "description": "Create a K3s cluster named 'mycluster'"},
-    {"command": "kubectl get nodes", "description": "Check the status of nodes in the K3s cluster"},
-    {"command": "kubectl get pods --all-namespaces", "description": "List all pods across all namespaces"},
-    {"command": "kubectl create deployment nginx --image=nginx", "description": "Deploy an Nginx application"},
-    {"command": "kubectl get pods", "description": "Check the status of the deployed Nginx pod"},
-    {"command": "k3d cluster delete mycluster", "description": "Delete the K3s cluster named 'mycluster'"},
-]

@@ -13,7 +13,7 @@ def update_count_csv(command_id, command, correct, file_path='csv/count.csv'):
             last_id = max(int(row[0]) for row in data[1:] if row[0].isdigit())
         else:
             last_id = 0
-        new_id = last_id + 1
+        new_id = int(last_id) + 1
         
         new_row = [new_id, command_id, command, correct]
         
@@ -30,5 +30,5 @@ def update_count_csv(command_id, command, correct, file_path='csv/count.csv'):
         print(f"An error occurred while updating the CSV: {e}")
 
 # Example usage
-update_count_csv(56, 'docker run -d --name container_name image_name[:tag]', 'True')
+# update_count_csv(56, 'docker run -d --name container_name image_name[:tag]', 'True')
 

@@ -45,6 +45,33 @@ def load_csv_to_sqlite(file_path, table_name, conn):
         print(f"An error occurred: {e}")
         return False
 
+def query_fuzzy_data(command_group_key_word=['docker'], limit=5):
+    with sqlite3.connect(':memory:') as conn:
+        # Load both CSV files into SQLite tables
+        if not load_csv_to_sqlite('csv/command_data.csv', 'command_data', conn):
+            return []
+        if not load_csv_to_sqlite('csv/count.csv', 'count', conn):
+            return []
+        query = """
+        SELECT command_data.id, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
+        , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
+        FROM command_data 
+        LEFT JOIN count ON command_data.id = count.command_id
+        WHERE {}
+        GROUP BY command_data.id
+        ORDER BY pCount, tCount
+        LIMIT ?
+        """
+        # Construct the WHERE clause for fuzzy matching
+        where_clause = ' OR '.join("command_data.command_group LIKE ?" for _ in command_group_key_word)
+        
+        query = query.format(where_clause)
+        # Prepare keywords for fuzzy matching
+        fuzzy_keywords = [f"%{kw}%" for kw in command_group_key_word]
+        result = pd.read_sql_query(query, conn, params=fuzzy_keywords + [limit])
+
+        return result.to_dict(orient='records')
+
 def query_joined_data(command_group=['process_commands'], limit=5):
     with sqlite3.connect(':memory:') as conn:
         # Load both CSV files into SQLite tables
@@ -73,11 +100,12 @@ def query_joined_data(command_group=['process_commands'], limit=5):
         # WHERE command_data.id = count.command_id
         query = """
         SELECT command_data.id, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
+        , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
         FROM command_data 
         LEFT JOIN count ON command_data.id = count.command_id
         WHERE command_data.command_group IN ({})
         GROUP BY command_data.id
-        ORDER BY pCount
+        ORDER BY pCount, tCount
         LIMIT ?
         """
         placeholders = ','.join('?' for _ in command_group)
@@ -89,7 +117,7 @@ def query_joined_data(command_group=['process_commands'], limit=5):
 # result = query_joined_data()
 # print()
 # for line in result:
-    # print(line)
+#     print(line)
 # print(len(result))
 
 def merge_and_load_to_sql():

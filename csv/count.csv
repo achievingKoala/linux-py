@@ -89,3 +89,140 @@ id,command_id,command,is_correct
 112,72,kill -9 1234,True
 113,75,./long_running_script.sh &,True
 114,69,top,True
+115,77,jobs,True
+116,69,top,True
+117,78,nice -n 10 ./my_script.sh,False
+118,67,ps aux,True
+119,73,killall firefox,True
+120,68,ps -ef | grep firefox,True
+121,76,fg %1,True
+122,80,strace -p 1234,False
+123,79,renice -5 -p 1234,True
+124,74,pkill -u username,True
+125,115,docker rmi image_id_or_name,True
+126,114,docker images,True
+127,112,docker search image_name,False
+128,116,docker run -d --name container_name image_name[:tag],False
+129,113,docker pull mysql:tag,True
+130,121,docker restart container_id_or_name,True
+131,117,docker ps,True
+132,119,docker start container_id_or_name,False
+133,120,docker stop container_id_or_name,False
+134,118,docker ps -a,True
+135,129,kubectl cluster-info,True
+136,133,kubectl config use-context context_name,False
+137,131,kubectl get namespaces,False
+138,130,kubectl get nodes,False
+139,132,kubectl config get-contexts,False
+140,133,kubectl config use-context context_name,True
+141,131,kubectl get namespaces,False
+142,132,kubectl config get-contexts,True
+143,130,kubectl get nodes,False
+144,129,kubectl cluster-info,False
+145,155,kubectl scale deployment nginx --replicas=3,True
+146,153,kubectl delete -f config.yaml,False
+147,156,kubectl autoscale deployment nginx --min=2 --max=5 --cpu-percent=80,False
+148,152,kubectl apply -f config.yaml,True
+149,154,kubectl get all,True
+150,155,kubectl scale deployment nginx --replicas=3,True
+151,153,kubectl delete -f config.yaml,False
+152,154,kubectl get all,False
+153,156,kubectl autoscale deployment nginx --min=2 --max=5 --cpu-percent=80,False
+154,152,kubectl apply -f config.yaml,True
+155,131,kubectl get namespaces,True
+156,130,kubectl get nodes,True
+157,133,kubectl config use-context context_name,True
+158,132,kubectl config get-contexts,False
+159,129,kubectl cluster-info,True
+160,144,kubectl describe deployment deployment_name,True
+161,143,kubectl get deployments,True
+162,142,kubectl create deployment nginx --image=nginx,True
+163,145,kubectl delete deployment deployment_name,False
+164,152,kubectl apply -f config.yaml,True
+165,149,kubectl logs pod_name,False
+166,146,kubectl get pods,True
+167,150,kubectl logs pod_name -c container_name,False
+168,148,kubectl describe pod pod_name,False
+169,147,kubectl get pods --all-namespaces,False
+170,143,kubectl get deployments,False
+171,151,kubectl exec -it pod_name -- /bin/sh,True
+172,145,kubectl delete deployment deployment_name,False
+173,144,kubectl describe deployment deployment_name,False
+174,142,kubectl create deployment nginx --image=nginx,False
+175,160,kubectl delete service service_name,True
+176,157,kubectl expose deployment nginx --type=NodePort --port=80,False
+177,159,kubectl describe service service_name,False
+178,158,kubectl get services,True
+179,51,ping host,True
+180,54,wget url,True
+181,62,wget -r url,True
+182,61,ip route show,True
+183,58,traceroute host,False
+184,58,traceroute host,True
+185,59,ftp hostname,False
+186,61,ip route show,False
+187,56,netstat -a,True
+188,55,ip addr show,True
+189,80,strace -p 1234,True
+190,79,renice -5 -p 1234,True
+191,74,pkill -u username,True
+192,62,wget -r url,False
+193,65,scp -r directory user@host:path,True
+194,107,grep -l 'keyword' *,True
+195,106,grep -v 'keyword' filename,False
+196,103,grep -r 'keyword' directory,False
+197,102,grep 'keyword' filename,False
+198,110,grep -E 'regex' filename,True
+199,165,find /dir -size -10k,True
+200,163,find /dir -type d,True
+201,161,find /dir -name 'filename',False
+202,162,find /dir -type f,True
+203,164,find /dir -size +50M,False
+204,169,find /dir -user username,False
+205,167,find /dir -atime +30,False
+206,170,find /dir -group groupname,True
+207,168,find /dir -perm 644,False
+208,166,find /dir -mtime -7,True
+209,171,find /dir -maxdepth 2 -name '*.conf',False
+210,243,sudo yum install package_name,True
+211,244,sudo yum remove package_name,False
+212,242,sudo yum check-update,False
+213,172,find /dir -exec rm {} \;,False
+214,246,sudo dnf check-update,False
+215,248,sudo dnf remove package_name,False
+216,249,sudo dnf upgrade,False
+217,245,sudo yum update,False
+218,247,sudo dnf install package_name,True
+219,250,sudo rpm -ivh package_name.rpm,False
+220,252,rpm -qi package_name,True
+221,161,find /dir -name 'filename',False
+222,109,grep -w 'keyword' filename,True
+223,251,sudo rpm -e package_name,False
+224,173,sed 's/old/new/g' file.txt,False
+225,177,sed -i 's/old/new/g' file.txt,False
+226,174,sed -n '3p' file.txt,False
+227,175,sed '1d' file.txt,False
+228,176,sed -e 's/foo/bar/' -e 's/baz/qux/',False
+229,179,awk '{print $1}',False
+230,181,awk '/pattern/ {print}',False
+231,180,"awk -F, '{print $2}' file.csv",False
+232,182,awk '{sum += $1} END {print sum}',False
+233,178,sed -n '/pattern/p' file.txt,False
+234,2,docker swarm join --token token manager-ip:port,False
+235,8,docker service update --image new-image service-name,False
+236,7,docker service scale service-name=replicas,False
+237,200,tr -d 'a' < filename.txt,True
+238,201,tr -s ' ' < filename.txt,True
+239,202,tr ' ' '\n' < filename.txt,False
+240,203,tr -cd '0-9' < filename.txt,False
+241,199,tr 'a-z' 'A-Z' < filename.txt,False
+242,206,num2=3,True
+243,204,"str=""Hello, Shell""",False
+244,207,sum=$((num1 + num2)),True
+245,208,"arr=(""apple"" ""banana"" ""cherry"")",False
+246,205,num1=5,True
+247,210,"if [ ""$num"" -gt 5 ]; then echo ""num is greater than 5""; else echo ""num is less than or equal to 5""; fi",False
+248,211,"if [ ""$str"" = ""hello"" ]; then echo ""Strings are equal""; fi",False
+249,213,"greet() { echo ""Hello, $1!""; }",False
+250,209,echo ${arr[1]},False
+251,212,"if [ -e ""file.txt"" ]; then echo ""File exists""; fi",False

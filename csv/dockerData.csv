@@ -1,51 +1,13 @@
 id,command_group,command,description
-1,docker_swarm_commands,docker swarm init,Initialize a new Docker Swarm
-2,docker_swarm_commands,docker swarm join --token token manager-ip:port,Join a node to the Swarm using the provided token
-3,docker_swarm_commands,docker node ls,List all nodes in the Swarm
-4,docker_swarm_commands,docker node rm node-id,Remove a node from the Swarm by node ID
-5,docker_swarm_commands,docker service create --name service-name --replicas number image,Create a new service in the Swarm with specified replicas
-6,docker_swarm_commands,docker service ls,List all services in the Swarm
-7,docker_swarm_commands,docker service scale service-name=replicas,Scale a service to the specified number of replicas
-8,docker_swarm_commands,docker service update --image new-image service-name,Update a service to use a new image
-9,docker_swarm_commands,docker service rm service-name,Remove a service from the Swarm
-10,docker_swarm_commands,docker stack deploy -c compose-file stack-name,Deploy a stack using a Docker Compose file
-11,docker_swarm_commands,docker stack rm stack-name,Remove a stack from the Swarm
-12,docker_swarm_commands,docker stack ls,List all stacks in the Swarm
-13,docker_swarm_commands,docker stack services stack-name,List all services in a specific stack
-14,docker_swarm_commands,docker node update --availability drain/pause/active node-id,Update the availability status of a node
-15,docker_nginx_swarm_commands,docker swarm init,Initialize a new Docker Swarm
-16,docker_nginx_swarm_commands,docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx,"Create an Nginx service with 3 replicas, exposing port 80"
-17,docker_nginx_swarm_commands,docker service ls,List all services to verify the deployment
-18,docker_nginx_swarm_commands,docker service ps nginx_cluster,Check the status and replica count of the Nginx service
-19,docker_nginx_swarm_commands,docker service scale nginx_cluster=5,Scale the Nginx service to 5 replicas
-20,docker_nginx_swarm_commands,docker service update --image nginx:latest nginx_cluster,Update the Nginx service to use the latest image
-21,docker_nginx_swarm_commands,docker service rm nginx_cluster,Remove the Nginx service from the Swarm
-22,dockerfile_commands,FROM ubuntu:20.04,Specify the base image for the Dockerfile
-23,dockerfile_commands,WORKDIR /app,Set the working directory for commands in the Dockerfile
-24,dockerfile_commands,COPY . /app,Copy files from the host to the container
-25,dockerfile_commands,RUN apt-get update && apt-get install -y python3,Execute commands to install dependencies
-26,dockerfile_commands,EXPOSE 80,Expose a port to allow external access to the container
-27,dockerfile_commands,"CMD [""python3"", ""app.py""]",Set the default command to run when the container starts
-28,dockerfile_commands,VOLUME /data,Define a volume for shared data between host and container
-29,docker_compose_commands,version: '3.8',Specify the version of the Docker Compose file format
-30,docker_compose_commands,services:,Define the services that make up the application
-31,docker_compose_commands,"build: context: ./backend, dockerfile: Dockerfile","Specify build options for the service, including context and Dockerfile"
-32,docker_compose_commands,image: nginx:latest,Specify the Docker image to use for the service
-33,docker_compose_commands,"ports: '80:80', '5000:5000'",Map ports from the host to the container
-34,docker_compose_commands,"volumes: './data:/data', 'db_data:/var/lib/mysql'",Mount host directories or volumes to the container
-35,docker_compose_commands,environment: MYSQL_ROOT_PASSWORD: example,Set environment variables for the service
-36,docker_compose_commands,depends_on: backend,"Specify dependencies between services, ensuring one starts before another"
-37,docker_compose_commands,networks: my_network,Define custom networks for communication between services
-38,docker_compose_commands,"command: [""python3"", ""app.py""]",Override the default command for the service
-39,docker_compose_commands,docker compose up -d --build,Start services in detached mode (background)
-40,docker_compose_commands,docker compose down --volumes,Stop and remove all services and networks defined in the Compose file
-41,docker_compose_commands,docker compose ps,List the status of the services defined in the Compose file
-42,docker_compose_commands,docker compose logs --follow,View the logs for services defined in the Compose file
-43,docker_compose_commands,docker compose restart service_name,Restart the services defined in the Compose file
-44,dockerfile_more_comands,"LABEL version=""1.0""",Add metadata to the image
-45,dockerfile_more_comands,ADD package.tar.gz /app,Copy and extract a tar file from the host to the container
-46,dockerfile_more_comands,"ENTRYPOINT [""python3"", ""app.py""]",Define the main executable when the container starts
-47,dockerfile_more_comands,ENV APP_ENV production,Set environment variables
-48,dockerfile_more_comands,USER appuser,Specify the user to run the container with
-49,dockerfile_more_comands,ARG VERSION=1.0,Define a build-time variable
-50,dockerfile_more_comands,HEALTHCHECK CMD curl --fail http://localhost || exit 1,Set a health check command to verify container status
+1,docker_basic_commands,docker search image_name,Search for an image in Docker Hub
+2,docker_basic_commands,docker pull mysql:tag,Download the MySQL image with a specific tag from Docker Hub
+3,docker_basic_commands,docker images,List all local images
+4,docker_basic_commands,docker rmi image_id_or_name,Remove an image by ID or name
+5,docker_basic_commands,docker run -d --name container_name image_name[:tag],Create and start a container in detached mode
+6,docker_basic_commands,docker ps,List all running containers
+7,docker_basic_commands,docker ps -a,"List all containers, including stopped ones"
+8,docker_basic_commands,docker start container_id_or_name,Start a stopped container
+9,docker_basic_commands,docker stop container_id_or_name,Stop a running container
+10,docker_basic_commands,docker restart container_id_or_name,Restart a container
+11,docker_basic_commands,docker rm container_id_or_name,Remove a container by ID or name
+12,docker_basic_commands,docker exec -it container_id_or_name /bin/bash,Access a running container with an interactive terminal
