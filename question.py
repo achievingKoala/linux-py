@@ -223,3 +223,77 @@ net_low_frequency_commands = [
 ]
 
 # {"command": "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash", "description": "Install k3d tool for managing K3s clusters in Docker"},
+# system
+# ln
+# cron
+# rsync
+
+# ignore 
+
+# {"command": "sudo fdisk /dev/sdX", "description": "Manage disk partitions on /dev/sdX"},
+# {"command": "sudo mkfs.ext4 /dev/sdX1", "description": "Format the partition /dev/sdX1 with ext4 file system"},
+# {"command": "sudo fsck /dev/sdX1", "description": "Check and repair the file system on /dev/sdX1"},
+# {"command": "sudo blkid", "description": "Display the UUID and file system type of devices"}
+# {"command": "sudo fdisk -l", "description": "List the partitions on all disks"},
+# {"command": "sudo mount /dev/sdX1 /mnt", "description": "Mount the partition /dev/sdX1 to /mnt"},
+# {"command": "mount", "description": "Display all currently mounted file systems"},
+# {"command": "sudo umount /dev/sdX1", "description": "Unmount the partition /dev/sdX1"},
+# {"command": "sudo parted /dev/sdX", "description": "Manage disk partitions using parted"},
+# {"command": "sudo mkfs.xfs /dev/sdX1", "description": "Format the partition /dev/sdX1 with xfs file system"},
+
+disk_management_commands = [
+    {"command": "df -h", "description": "Display disk space usage in human-readable format"},
+    {"command": "du -sh /dir", "description": "Show the disk usage of a directory in human-readable format"},
+    {"command": "lsblk", "description": "List all block devices (disks, partitions, etc.)"},
+]
+
+file_ln_commands = [
+    {"command": "ln source_file link_name", "description": "Create a hard link named 'link_name' to 'source_file'"},
+    {"command": "ln -s source_file link_name", "description": "Create a symbolic (soft) link named 'link_name' to 'source_file'"}
+]
+
+file_locate_commands = [
+    {"command": "locate filename", "description": "Quickly find the path of a file named 'filename' by searching through a prebuilt database"},
+    {"command": "locate -i filename", "description": "Locate the file named 'filename' ignoring the case"},
+    {"command": "locate -c filename", "description": "Count the number of occurrences of 'filename' in the database"},
+    {"command": "locate -r 'regex'", "description": "Locate files matching a specified regular expression pattern"}
+]
+
+service_commands = [
+    {"command": "chkconfig --list", "description": "List all system services and their runlevel settings"},
+    {"command": "service servicename start", "description": "Start a specified service"},
+    {"command": "service servicename stop", "description": "Stop a specified service"},
+    {"command": "service servicename restart", "description": "Restart a specified service"},
+    {"command": "service servicename status", "description": "Show the status of a specified service"},
+    {"command": "systemctl start servicename", "description": "Start a specified service using systemd"},
+    {"command": "systemctl stop servicename", "description": "Stop a specified service using systemd"},
+    {"command": "systemctl restart servicename", "description": "Restart a specified service using systemd"},
+    {"command": "systemctl status servicename", "description": "Show the status of a specified service using systemd"},
+    {"command": "systemctl enable servicename", "description": "Enable a service to start at boot using systemd"},
+    {"command": "systemctl disable servicename", "description": "Disable a service from starting at boot using systemd"}
+]
+
+
+
+system_structure = [
+    {"command": "/", "description": "Root directory, the top-level directory of the file system"},
+    {"command": "/bin", "description": "Contains essential command binaries for basic system operations"},
+    {"command": "/boot", "description": "Contains files needed for system booting, such as the kernel"},
+    {"command": "/dev", "description": "Contains device files, representing hardware devices"},
+    {"command": "/etc", "description": "Contains system configuration files"},
+    {"command": "/home", "description": "Contains users' home directories, storing personal files"},
+    {"command": "/lib", "description": "Contains system libraries needed by binaries in /bin and /sbin"},
+    {"command": "/media", "description": "Contains mount points for removable media like CDs or USB drives"},
+    {"command": "/mnt", "description": "Contains temporary mount points for file systems or devices"},
+    {"command": "/opt", "description": "Contains optional software packages, usually third-party applications"},
+    {"command": "/proc", "description": "Virtual file system providing information about running processes and kernel parameters"},
+    {"command": "/root", "description": "The home directory of the root (administrator) user"},
+    {"command": "/run", "description": "Contains runtime data and system information during boot or service execution"},
+    {"command": "/sbin", "description": "Contains system binaries used by the system administrator for system management"},
+    {"command": "/srv", "description": "Contains data for services provided by the system, like web or FTP servers"},
+    {"command": "/sys", "description": "Contains virtual files that provide information about system hardware and kernel"},
+    {"command": "/tmp", "description": "Contains temporary files, typically cleared upon system reboot"},
+    {"command": "/usr", "description": "Contains user programs, libraries, and shared data"},
+    {"command": "/var", "description": "Contains variable data such as logs, mail, and spool files"}
+]
+
