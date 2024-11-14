@@ -56,7 +56,7 @@ def save_commands_to_csv(commands_array, array_name, file_path='csv/command_data
 
 
 # Example usage with docker_swarm_commands
-save_commands_to_csv(question.redhat_package_commands, 'redhat_package_commands')
+save_commands_to_csv(docker_question.docker_advance_commands, 'docker_advance_commands')
 
 def add_data(new_data, file_path="csv/command_data.csv"):
     # 检查文件是否存在
