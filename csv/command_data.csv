@@ -1,25 +1,4 @@
-id,command_group,command,description
-1,docker_swarm_commands,docker swarm init,Initialize a new Docker Swarm
-2,docker_swarm_commands,docker swarm join --token token manager-ip:port,Join a node to the Swarm using the provided token
-3,docker_swarm_commands,docker node ls,List all nodes in the Swarm
-4,docker_swarm_commands,docker node rm node-id,Remove a node from the Swarm by node ID
-5,docker_swarm_commands,docker service create --name service-name --replicas number image,Create a new service in the Swarm with specified replicas
-6,docker_swarm_commands,docker service ls,List all services in the Swarm
-7,docker_swarm_commands,docker service scale service-name=replicas,Scale a service to the specified number of replicas
-8,docker_swarm_commands,docker service update --image new-image service-name,Update a service to use a new image
-9,docker_swarm_commands,docker service rm service-name,Remove a service from the Swarm
-10,docker_swarm_commands,docker stack deploy -c compose-file stack-name,Deploy a stack using a Docker Compose file
-11,docker_swarm_commands,docker stack rm stack-name,Remove a stack from the Swarm
-12,docker_swarm_commands,docker stack ls,List all stacks in the Swarm
-13,docker_swarm_commands,docker stack services stack-name,List all services in a specific stack
-14,docker_swarm_commands,docker node update --availability drain/pause/active node-id,Update the availability status of a node
-15,docker_nginx_swarm_commands,docker swarm init,Initialize a new Docker Swarm
-16,docker_nginx_swarm_commands,docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx,"Create an Nginx service with 3 replicas, exposing port 80"
-17,docker_nginx_swarm_commands,docker service ls,List all services to verify the deployment
-18,docker_nginx_swarm_commands,docker service ps nginx_cluster,Check the status and replica count of the Nginx service
-19,docker_nginx_swarm_commands,docker service scale nginx_cluster=5,Scale the Nginx service to 5 replicas
-20,docker_nginx_swarm_commands,docker service update --image nginx:latest nginx_cluster,Update the Nginx service to use the latest image
-21,docker_nginx_swarm_commands,docker service rm nginx_cluster,Remove the Nginx service from the Swarm
+id,command_group,command,description,ignore
 22,dockerfile_commands,FROM ubuntu:20.04,Specify the base image for the Dockerfile
 23,dockerfile_commands,WORKDIR /app,Set the working directory for commands in the Dockerfile
 24,dockerfile_commands,COPY . /app,Copy files from the host to the container
@@ -49,7 +28,7 @@ id,command_group,command,description
 48,dockerfile_more_comands,USER appuser,Specify the user to run the container with
 49,dockerfile_more_comands,ARG VERSION=1.0,Define a build-time variable
 50,dockerfile_more_comands,HEALTHCHECK CMD curl --fail http://localhost || exit 1,Set a health check command to verify container status
-51,net_high_frequency_commands,ping host,Test the connectivity to a host
+51,net_high_frequency_commands,ping host,Test the connectivity to a host,1
 52,net_high_frequency_commands,ssh user@hostname,Securely log in to a remote host
 53,net_high_frequency_commands,scp file user@host:path,Securely copy a file to a remote host
 54,net_high_frequency_commands,wget url,Download a file from a specified URL
@@ -69,16 +48,16 @@ id,command_group,command,description
 68,process_commands,ps -ef | grep firefox,Filter and display all processes related to Firefox
 69,process_commands,top,Open a real-time view of system resource usage and processes
 70,process_commands,htop,Interactive process viewer with a user-friendly interface
-71,process_commands,kill 1234,Terminate the process with PID 1234
-72,process_commands,kill -9 1234,Forcefully terminate the process with PID 1234
+71,process_commands,kill 1234,Terminate the process with PID 1234,1
+72,process_commands,kill -9 1234,Forcefully terminate the process with PID 1234,1
 73,process_commands,killall firefox,Terminate all processes named Firefox
 74,process_commands,pkill -u username,Kill all processes for the specified user
 75,process_commands,./long_running_script.sh &,Run a script in the background
 76,process_commands,fg %1,Bring the background job with ID 1 to the foreground
 77,process_commands,jobs,List all jobs for the current user
-78,process_commands,nice -n 10 ./my_script.sh,Run 'my_script.sh' with a priority of 10
-79,process_commands,renice -5 -p 1234,Change the priority of the process with PID 1234 to -5
-80,process_commands,strace -p 1234,Trace the system calls of the process with PID 1234
+78,process_commands,nice -n 10 ./my_script.sh,Run 'my_script.sh' with a priority of 10,1
+79,process_commands,renice -5 -p 1234,Change the priority of the process with PID 1234 to -5,1
+80,process_commands,strace -p 1234,Trace the system calls of the process with PID 1234,1
 81,user_group_commands,sudo useradd username,Add a new user 'username'
 82,user_group_commands,sudo userdel username,Delete the user 'username'
 83,user_group_commands,sudo usermod -aG groupname username,Add user 'username' to the group 'groupname'
@@ -92,14 +71,6 @@ id,command_group,command,description
 91,user_group_commands,ls -l,Show file and directory permissions
 92,user_group_commands,chmod 755 filename,Change the permissions of 'filename' to 755
 93,user_group_commands,sudo chown username:groupname filename,Change the owner of 'filename' to 'username' and group to 'groupname'
-94,k3s_commands,docker --version,Check Docker installation
-95,k3s_commands,k3d version,Check k3d installation
-96,k3s_commands,k3d cluster create mycluster,Create a K3s cluster named 'mycluster'
-97,k3s_commands,kubectl get nodes,Check the status of nodes in the K3s cluster
-98,k3s_commands,kubectl get pods --all-namespaces,List all pods across all namespaces
-99,k3s_commands,kubectl create deployment nginx --image=nginx,Deploy an Nginx application
-100,k3s_commands,kubectl get pods,Check the status of the deployed Nginx pod
-101,k3s_commands,k3d cluster delete mycluster,Delete the K3s cluster named 'mycluster'
 102,grep_commands,grep 'keyword' filename,Search for lines containing 'keyword' in the specified file
 103,grep_commands,grep -r 'keyword' directory,Recursively search for 'keyword' in all files under a directory
 104,grep_commands,grep -i 'keyword' filename,"Search for 'keyword' in the specified file, ignoring case"
@@ -222,13 +193,13 @@ id,command_group,command,description
 221,shell_dic_commands,"my_dict[""age""]=30",Set the key 'age' in 'my_dict' with value 30
 222,shell_dic_commands,"echo ${my_dict[""name""]}",Access and print the value associated with the key 'name' in 'my_dict'
 223,shell_dic_commands,"for key in ""${!my_dict[@]}""; do echo ""$key: ${my_dict[$key]}""; done",Loop through all key-value pairs in 'my_dict' and print each key and its associated value
-224,archive_commands,tar -czvf archive.tar.gz /path/to/directory,Create a compressed archive 'archive.tar.gz' from '/path/to/directory'
+224,archive_commands,tar -czvf archive.tar.gz /path/to/dir,Create a compressed archive 'archive.tar.gz' from '/path/to/dir'
 225,archive_commands,tar -xzvf archive.tar.gz,Extract 'archive.tar.gz' in the current directory
 226,archive_commands,tar -xzvf archive.tar.gz -C /path/to/extract,Extract 'archive.tar.gz' to '/path/to/extract'
 227,archive_commands,gzip filename,Compress 'filename' to 'filename.gz'
 228,archive_commands,gunzip filename.gz,Decompress 'filename.gz' to its original form
 229,archive_commands,gzip -d filename.gz,Alternative command to decompress 'filename.gz'
-230,archive_commands,zip -r archive.zip /path/to/directory,Create a zip archive 'archive.zip' from '/path/to/directory'
+230,archive_commands,zip -r archive.zip /path/to/dir,Create a zip archive 'archive.zip' from '/path/to/dir'
 231,archive_commands,unzip archive.zip,Extract 'archive.zip' in the current directory
 232,archive_commands,unzip archive.zip -d /path/to/extract,Extract 'archive.zip' to '/path/to/extract'
 233,debian_package_commands,sudo apt update,Update the list of available packages
@@ -251,3 +222,32 @@ id,command_group,command,description
 250,redhat_package_commands,sudo rpm -ivh package_name.rpm,Install an .rpm package file
 251,redhat_package_commands,sudo rpm -e package_name,Remove an installed package
 252,redhat_package_commands,rpm -qi package_name,Display information about an installed package
+253,docker_advance_commands,docker network ls,List all Docker networks
+254,docker_advance_commands,docker network create network_name,Create a new Docker network
+255,docker_advance_commands,docker network connect network_name container_id_or_name,Connect a container to a network
+256,docker_advance_commands,docker network disconnect network_name container_id_or_name,Disconnect a container from a network
+257,docker_advance_commands,docker volume create volume_name,Create a new Docker volume
+258,docker_advance_commands,docker volume ls,List all Docker volumes
+259,docker_advance_commands,docker run -d -v volume_name:/container_path image_name,Mount a volume to a container
+260,docker_advance_commands,docker volume rm volume_name,Remove a Docker volume by name
+261,docker_advance_commands,docker logs container_name,Fetch the logs of a container
+262,docker_advance_commands,docker logs -f container_name,Follow logs of a container in real-time
+263,system_structure,/,"Root directory, the top-level directory of the file system"
+264,system_structure,/bin,Contains essential command binaries for basic system operations
+265,system_structure,/boot,"Contains files needed for system booting, such as the kernel"
+266,system_structure,/dev,"Contains device files, representing hardware devices"
+267,system_structure,/etc,Contains system configuration files
+268,system_structure,/home,"Contains users' home directories, storing personal files"
+269,system_structure,/lib,Contains system libraries needed by binaries in /bin and /sbin
+270,system_structure,/media,Contains mount points for removable media like CDs or USB drives
+271,system_structure,/mnt,Contains temporary mount points for file systems or devices
+272,system_structure,/opt,"Contains optional software packages, usually third-party applications"
+273,system_structure,/proc,Virtual file system providing information about running processes and kernel parameters
+274,system_structure,/root,The home directory of the root (administrator) user
+275,system_structure,/run,Contains runtime data and system information during boot or service execution
+276,system_structure,/sbin,Contains system binaries used by the system administrator for system management
+277,system_structure,/srv,"Contains data for services provided by the system, like web or FTP servers"
+278,system_structure,/sys,Contains virtual files that provide information about system hardware and kernel
+279,system_structure,/tmp,"Contains temporary files, typically cleared upon system reboot"
+280,system_structure,/usr,"Contains user programs, libraries, and shared data"
+281,system_structure,/var,"Contains variable data such as logs, mail, and spool files"
