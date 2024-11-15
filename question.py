@@ -234,14 +234,15 @@ net_low_frequency_commands = [
 # {"command": "sudo mkfs.ext4 /dev/sdX1", "description": "Format the partition /dev/sdX1 with ext4 file system"},
 # {"command": "sudo fsck /dev/sdX1", "description": "Check and repair the file system on /dev/sdX1"},
 # {"command": "sudo blkid", "description": "Display the UUID and file system type of devices"}
-# {"command": "sudo fdisk -l", "description": "List the partitions on all disks"},
+
 # {"command": "sudo mount /dev/sdX1 /mnt", "description": "Mount the partition /dev/sdX1 to /mnt"},
 # {"command": "mount", "description": "Display all currently mounted file systems"},
 # {"command": "sudo umount /dev/sdX1", "description": "Unmount the partition /dev/sdX1"},
 # {"command": "sudo parted /dev/sdX", "description": "Manage disk partitions using parted"},
 # {"command": "sudo mkfs.xfs /dev/sdX1", "description": "Format the partition /dev/sdX1 with xfs file system"},
 
-disk_management_commands = [
+disk_file_commands = [
+    {"command": "sudo fdisk -l", "description": "List the partitions on all disks"},
     {"command": "df -h", "description": "Display disk space usage in human-readable format"},
     {"command": "du -sh /dir", "description": "Show the disk usage of a directory in human-readable format"},
     {"command": "lsblk", "description": "List all block devices (disks, partitions, etc.)"},
@@ -297,3 +298,14 @@ system_structure = [
     {"command": "/var", "description": "Contains variable data such as logs, mail, and spool files"}
 ]
 
+# help
+command_usage_examples = [
+    {"command": "man command", "description": "Show the manual for a command"},
+    {"command": "command --help", "description": "Display help information about a command's usage and options"},
+    {"command": "info command", "description": "Show a command's documentation page, if available"},
+    {"command": "whatis command", "description": "Display a brief description of a command"},
+    {"command": "whereis command", "description": "Locate the binary, source, and manual page files for a command"},
+    {"command": "which command", "description": "Show the full path of a shell command"},
+]
+
+# regular expresssion
