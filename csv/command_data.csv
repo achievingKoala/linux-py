@@ -103,11 +103,11 @@ id,command_group,command,description,ignore
 131,k8s_cluster_info_commands,kubectl get namespaces,List all namespaces in the cluster
 132,k8s_cluster_info_commands,kubectl config get-contexts,List available contexts
 133,k8s_cluster_info_commands,kubectl config use-context context_name,Switch to the specified context
-134,k8s_config_and_secret_management_commands,kubectl create configmap my-config --from-file=config.txt,Create a ConfigMap from a file
+134,k8s_config_and_secret_management_commands,kubectl create configmap my-config --from-file=config.txt,Create a ConfigMap my-config from a file config.txt
 135,k8s_config_and_secret_management_commands,kubectl get configmaps,List all ConfigMaps in the current namespace
-136,k8s_config_and_secret_management_commands,kubectl describe configmap my-config,Show detailed information about a ConfigMap
-137,k8s_config_and_secret_management_commands,kubectl delete configmap my-config,Delete a ConfigMap
-138,k8s_config_and_secret_management_commands,kubectl create secret generic my-secret --from-literal=password=YOUR_PASSWORD,Create a Secret
+136,k8s_config_and_secret_management_commands,kubectl describe configmap my-config,Show detailed information about a ConfigMap my-config
+137,k8s_config_and_secret_management_commands,kubectl delete configmap my-config,Delete a ConfigMap my-config
+138,k8s_config_and_secret_management_commands,kubectl create secret generic my-secret --from-literal=password=YOUR_PASSWORD,Create a Secret my-secret password=YOUR_PASSWORD
 139,k8s_config_and_secret_management_commands,kubectl get secrets,List all Secrets in the current namespace
 140,k8s_config_and_secret_management_commands,kubectl describe secret my-secret,Show detailed information about a Secret
 141,k8s_config_and_secret_management_commands,kubectl delete secret my-secret,Delete a Secret
