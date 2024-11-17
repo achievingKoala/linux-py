@@ -6,28 +6,28 @@ id,command_group,command,description,ignore
 26,dockerfile_commands,EXPOSE 80,Expose a port to allow external access to the container
 27,dockerfile_commands,"CMD [""python3"", ""app.py""]",Set the default command to run when the container starts
 28,dockerfile_commands,VOLUME /data,Define a volume for shared data between host and container
-29,docker_compose_commands,version: '3.8',Specify the version of the Docker Compose file format
+29,docker_compose_commands,version: '3.8',Specify the version 3.8 of the Docker Compose file format
 30,docker_compose_commands,services:,Define the services that make up the application
 31,docker_compose_commands,"build: context: ./backend, dockerfile: Dockerfile","Specify build options for the service, including context and Dockerfile"
-32,docker_compose_commands,image: nginx:latest,Specify the Docker image to use for the service
-33,docker_compose_commands,"ports: '80:80', '5000:5000'",Map ports from the host to the container
+32,docker_compose_commands,image: nginx:latest,Specify the Docker image nginx:latest to use for the service
+33,docker_compose_commands,"ports: '80:80', '5000:5000'",Map ports 80 and 5000 from the host to the container
 34,docker_compose_commands,"volumes: './data:/data', 'db_data:/var/lib/mysql'",Mount host directories or volumes to the container
-35,docker_compose_commands,environment: MYSQL_ROOT_PASSWORD: example,Set environment variables for the service
-36,docker_compose_commands,depends_on: backend,"Specify dependencies between services, ensuring one starts before another"
-37,docker_compose_commands,networks: my_network,Define custom networks for communication between services
-38,docker_compose_commands,"command: [""python3"", ""app.py""]",Override the default command for the service
+35,docker_compose_commands,environment: MYSQL_ROOT_PASSWORD: example,Set environment MYSQL_ROOT_PASSWORD: example variables for the service
+36,docker_compose_commands,depends_on: backend,"Specify dependencies (backend) between services, ensuring one starts before another"
+37,docker_compose_commands,networks: my_network,Define custom networks (my_network) for communication between services
+38,docker_compose_commands,"command: [""python3"", ""app.py""]",Override the default command python3 app.py for the service
 39,docker_compose_commands,docker compose up -d --build,Start services in detached mode (background)
 40,docker_compose_commands,docker compose down --volumes,Stop and remove all services and networks defined in the Compose file
 41,docker_compose_commands,docker compose ps,List the status of the services defined in the Compose file
 42,docker_compose_commands,docker compose logs --follow,View the logs for services defined in the Compose file
 43,docker_compose_commands,docker compose restart service_name,Restart the services defined in the Compose file
-44,dockerfile_more_comands,"LABEL version=""1.0""",Add metadata to the image
-45,dockerfile_more_comands,ADD package.tar.gz /app,Copy and extract a tar file from the host to the container
-46,dockerfile_more_comands,"ENTRYPOINT [""python3"", ""app.py""]",Define the main executable when the container starts
-47,dockerfile_more_comands,ENV APP_ENV production,Set environment variables
-48,dockerfile_more_comands,USER appuser,Specify the user to run the container with
-49,dockerfile_more_comands,ARG VERSION=1.0,Define a build-time variable
-50,dockerfile_more_comands,HEALTHCHECK CMD curl --fail http://localhost || exit 1,Set a health check command to verify container status
+44,dockerfile_more_comands,LABEL version=""1.0""",Add metadata version=""1.0""" to the image
+45,dockerfile_more_comands,ADD package.tar.gz /app,Copy and extract a tar file package.tar.gz from the host to the container /app
+46,dockerfile_more_comands,"ENTRYPOINT [""python3"", ""app.py""]",Define the main executable python3 app.py when the container starts
+47,dockerfile_more_comands,ENV APP_ENV production,Set environment APP_ENV=production variables
+48,dockerfile_more_comands,USER appuser,Specify the user appuser to run the container with
+49,dockerfile_more_comands,ARG VERSION=1.0,Define a build-time variable VERSION=1.0
+50,dockerfile_more_comands,HEALTHCHECK CMD curl --fail http://localhost || exit 1,Set a health check command to verify container status url:http://localhost
 51,net_high_frequency_commands,ping host,Test the connectivity to a host,1
 52,net_high_frequency_commands,ssh user@hostname,Securely log in to a remote host
 53,net_high_frequency_commands,scp file user@host:path,Securely copy a file to a remote host
@@ -83,15 +83,15 @@ id,command_group,command,description,ignore
 111,grep_commands,grep --color 'keyword' filename,Highlight 'keyword' in output for easier identification
 112,docker_basic_commands,docker search image_name,Search for an image in Docker Hub
 113,docker_basic_commands,docker pull mysql:tag,Download the MySQL image with a specific tag from Docker Hub
-114,docker_basic_commands,docker images,List all local images
-115,docker_basic_commands,docker rmi image_id_or_name,Remove an image by ID or name
+114,docker_basic_commands,docker images,List all local images,1
+115,docker_basic_commands,docker rmi image_id_or_name,Remove an image by ID or name,1
 116,docker_basic_commands,docker run -d --name container_name image_name[:tag],Create and start a container in detached mode
-117,docker_basic_commands,docker ps,List all running containers
-118,docker_basic_commands,docker ps -a,"List all containers, including stopped ones"
-119,docker_basic_commands,docker start container_id_or_name,Start a stopped container
-120,docker_basic_commands,docker stop container_id_or_name,Stop a running container
+117,docker_basic_commands,docker ps,List all running containers,1
+118,docker_basic_commands,docker ps -a,"List all containers, including stopped ones",1
+119,docker_basic_commands,docker start container_id_or_name,Start a stopped container,1
+120,docker_basic_commands,docker stop container_id_or_name,Stop a running container,1
 121,docker_basic_commands,docker restart container_id_or_name,Restart a container
-122,docker_basic_commands,docker rm container_id_or_name,Remove a container by ID or name
+122,docker_basic_commands,docker rm container_id_or_name,Remove a container by ID or name,1
 123,docker_basic_commands,docker exec -it container_id_or_name /bin/bash,Access a running container with an interactive terminal
 124,k8s_advanced_debugging_commands,kubectl top nodes,Display resource usage for nodes
 125,k8s_advanced_debugging_commands,kubectl top pods,Display resource usage for pods
@@ -159,11 +159,11 @@ id,command_group,command,description,ignore
 187,cut_commands,"cut -d ',' -f 2 data.csv",Extract the second field from each line in 'data.csv' using a comma as the delimiter
 188,cut_commands,"cut -d ' ' -f 1,3,5 report.txt","Extract the first, third, and fifth fields from each line in 'report.txt'"
 189,cut_commands,cut -d ':' -f 1 /etc/passwd,Extract the usernames from the '/etc/passwd' file
-190,cat_commands,cat filename.txt,Display the contents of 'filename.txt'
+190,cat_commands,cat filename.txt,Display the contents of 'filename.txt',1
 191,cat_commands,cat file1.txt file2.txt,Concatenate and display the contents of 'file1.txt' and 'file2.txt'
-192,cat_commands,cat -n filename.txt,Display the contents of 'filename.txt' with line numbers
+192,cat_commands,cat -n filename.txt,Display the contents of 'filename.txt' with line numbers,1
 193,cat_commands,cat -e filename.txt,Display the contents of 'filename.txt' with a dollar sign at the end of each line
-194,cat_commands,cat filename.txt | grep 'keyword',Search for 'keyword' in the contents of 'filename.txt' using a pipe
+194,cat_commands,cat filename.txt | grep 'keyword',Search for 'keyword' in the contents of 'filename.txt' using a pipe,1
 195,uniq_commands,uniq filename.txt,Remove adjacent duplicate lines in 'filename.txt'
 196,uniq_commands,uniq -c filename.txt,Display unique lines in 'filename.txt' with count of occurrences
 197,uniq_commands,uniq -d filename.txt,Display only duplicate lines in 'filename.txt'
@@ -174,7 +174,7 @@ id,command_group,command,description,ignore
 202,tr_commands,tr ' ' '\n' < filename.txt,Replace spaces with newlines in 'filename.txt'
 203,tr_commands,tr -cd '0-9' < filename.txt,Remove all characters except digits in 'filename.txt'
 204,shell_var_commands,"str=""Hello, Shell""","Define a string variable 'str' with the value 'Hello, Shell'"
-205,shell_var_commands,num1=5,Define an integer variable 'num1' with value 5
+205,shell_var_commands,num1=5,Define an integer variable 'num1' with value 5,1
 206,shell_var_commands,num2=3,Define an integer variable 'num2' with value 3
 207,shell_var_commands,sum=$((num1 + num2)),Perform integer addition and assign result to 'sum'
 208,shell_var_commands,"arr=(""apple"" ""banana"" ""cherry"")","Define an array 'arr' with values 'apple', 'banana', 'cherry'"
@@ -190,7 +190,7 @@ id,command_group,command,description,ignore
 218,shell_loop_command,"while [ $count -le 5 ]; do echo ""Count: $count""; count=$((count + 1)); done","While loop that increments 'count' from 1 to 5, printing it each time"
 219,shell_dic_commands,declare -A my_dict,Declare an associative array (dictionary) named 'my_dict'
 220,shell_dic_commands,"my_dict[""name""]=""Alice""",Set the key 'name' in 'my_dict' with value 'Alice'
-221,shell_dic_commands,"my_dict[""age""]=30",Set the key 'age' in 'my_dict' with value 30
+221,shell_dic_commands,"my_dict[""age""]=30",Set the key 'age' in 'my_dict' with value 30,1
 222,shell_dic_commands,"echo ${my_dict[""name""]}",Access and print the value associated with the key 'name' in 'my_dict'
 223,shell_dic_commands,"for key in ""${!my_dict[@]}""; do echo ""$key: ${my_dict[$key]}""; done",Loop through all key-value pairs in 'my_dict' and print each key and its associated value
 224,archive_commands,tar -czvf archive.tar.gz /path/to/dir,Create a compressed archive 'archive.tar.gz' from '/path/to/dir'
@@ -251,3 +251,30 @@ id,command_group,command,description,ignore
 279,system_structure,/tmp,"Contains temporary files, typically cleared upon system reboot"
 280,system_structure,/usr,"Contains user programs, libraries, and shared data"
 281,system_structure,/var,"Contains variable data such as logs, mail, and spool files"
+282,service_commands,chkconfig --list,List all system services and their runlevel settings
+283,service_commands,service servicename start,Start a specified service
+284,service_commands,service servicename stop,Stop a specified service
+285,service_commands,service servicename restart,Restart a specified service
+286,service_commands,service servicename status,Show the status of a specified service
+287,service_commands,systemctl start servicename,Start a specified service using systemd
+288,service_commands,systemctl stop servicename,Stop a specified service using systemd
+289,service_commands,systemctl restart servicename,Restart a specified service using systemd
+290,service_commands,systemctl status servicename,Show the status of a specified service using systemd
+291,service_commands,systemctl enable servicename,Enable a service to start at boot using systemd
+292,service_commands,systemctl disable servicename,Disable a service from starting at boot using systemd
+293,disk_file_commands,sudo fdisk -l,List the partitions on all disks
+294,disk_file_commands,df -h,Display disk space usage in human-readable format
+295,disk_file_commands,du -sh /dir,Show the disk usage of a directory in human-readable format
+296,disk_file_commands,lsblk,"List all block devices (disks, partitions, etc.)"
+297,file_ln_commands,ln source_file link_name,Create a hard link named 'link_name' to 'source_file'
+298,file_ln_commands,ln -s source_file link_name,Create a symbolic (soft) link named 'link_name' to 'source_file'
+299,file_locate_commands,locate filename,Quickly find the path of a file named 'filename' by searching through a prebuilt database
+300,file_locate_commands,locate -i filename,Locate the file named 'filename' ignoring the case
+301,file_locate_commands,locate -c filename,Count the number of occurrences of 'filename' in the database
+302,file_locate_commands,locate -r 'regex',Locate files matching a specified regular expression pattern
+303,command_usage_examples,man command,Show the manual for a command
+304,command_usage_examples,command --help,Display help information about a command's usage and options
+305,command_usage_examples,info command,"Show a command's documentation page, if available"
+306,command_usage_examples,whatis command,Display a brief description of a command
+307,command_usage_examples,whereis command,"Locate the binary, source, and manual page files for a command"
+308,command_usage_examples,which command,Show the full path of a shell command
