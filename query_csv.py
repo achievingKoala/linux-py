@@ -136,7 +136,9 @@ def query_joined_data(command_group=['process_commands'], limit=5):
         
         # Execute SQL JOIN query
         query = """
-        SELECT command_data.id, command_data.ignore, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
+        SELECT 
+        command_data.id, 
+        command_data.ignore, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
         , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
         FROM command_data 
         LEFT JOIN count ON command_data.id = count.command_id
@@ -152,7 +154,7 @@ def query_joined_data(command_group=['process_commands'], limit=5):
 
         return result.to_dict(orient='records')
 
-def query_min_data(command_group=['process_commands'], limit=10):
+def query_min_data(exclude_words= ['k8s', 'docker', 'cron_more', 'package'], command_group=['process_commands'], limit=100):
     with sqlite3.connect(':memory:') as conn:
         # Load both CSV files into SQLite tables
         if not load_csv_to_sqlite('csv/command_data.csv', 'command_data', conn):
@@ -162,23 +164,92 @@ def query_min_data(command_group=['process_commands'], limit=10):
         
         # Execute SQL JOIN query
         query = """
-        SELECT command_data.id, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
-        , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
+        SELECT 
+        command_data.id, 
+        command_data.command, 
+        command_data.command_group, 
+        command_data.description, 
+        count.command_id, 
+        count(count.command_id) as pCount, 
+        SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
         FROM command_data 
         LEFT JOIN count ON command_data.id = count.command_id
+        where {}
         GROUP BY command_data.id
         ORDER BY pCount, tCount
         LIMIT ?
         """
-        placeholders = ','.join('?' for _ in command_group)
+        placeholders = ' and '.join("command_data.command_group NOT LIKE ?" for _ in exclude_words)         
         query = query.format(placeholders)
-        result = pd.read_sql_query(query, conn, params=[limit])
+        # [f'%{word}%'for word in exclude_words]
+        fuzzy_keywords = [f"%{kw}%" for kw in exclude_words]
+        result = pd.read_sql_query(query, conn, params= fuzzy_keywords + [limit])
+        # result = pd.read_sql_query(query, conn, params=[limit])
 
-        return result.to_dict(orient='records')
+        # return result.to_dict(orient='records')
+        # return [ x['command_group'] for x in result.to_dict(orient='records')]
+        # Count the occurrences of each command_group and return the top 5
+        command_groups = [x['command_group'] for x in result.to_dict(orient='records')]
+        top_5_command_groups = pd.Series(command_groups).value_counts().head(5).index.tolist()
 
-# result = query_min_data()
+        return top_5_command_groups
+
+def query_min_group_data(exclude_words= ['k8s', 'docker', 'cron_more', 'package'], command_group=['process_commands'], limit=100):
+    with sqlite3.connect(':memory:') as conn:
+        # Load both CSV files into SQLite tables
+        if not load_csv_to_sqlite('csv/command_data.csv', 'command_data', conn):
+            return []
+        if not load_csv_to_sqlite('csv/count.csv', 'count', conn):
+            return []
+        
+        # Execute SQL JOIN query
+        # query = """
+        # SELECT 
+        # command_data.id, 
+        # command_data.command, 
+        # command_data.command_group, 
+        # command_data.description, 
+        # count.command_id, 
+        # count(count.command_id) as pCount,
+        # SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount,
+        # count(command_data.command) as questC,
+        # (count(count.command_id) + 0.0) / count(command_data.id) as average
+        # FROM command_data 
+        # LEFT JOIN count ON command_data.id = count.command_id
+        # where {}
+        # GROUP BY command_data.command_group
+        # ORDER BY average, pCount
+        # LIMIT ?
+        # """
+        # Execute SQL JOIN query
+        query = """
+        SELECT 
+        command_data.id,
+        command_data.command_group, 
+        command_data.description, 
+        count(count.id) as tryC, 
+        count(distinct command_data.id) as questC,
+        Round((count(count.id) + 0.0) / count(distinct command_data.id), 2) as averageC
+        FROM command_data
+        left join count
+        on command_data.id = count.command_id
+        where {}
+        GROUP BY command_data.command_group
+        ORDER BY averageC, tryC
+        LIMIT ?
+        """
+        placeholders = ' and '.join("command_data.command_group NOT LIKE ?" for _ in exclude_words)         
+        query = query.format(placeholders)
+        # [f'%{word}%'for word in exclude_words]
+        fuzzy_keywords = [f"%{kw}%" for kw in exclude_words]
+        result = pd.read_sql_query(query, conn, params= fuzzy_keywords + [limit])
+        # result = pd.read_sql_query(query, conn, params=[limit])
+        return [ x['command_group'] for x in result.to_dict(orient='records')][0:5]
+
+# result = query_min_group_data()
 # print()
 # for line in result:
+    # print(f"{line['command_group']} {line['pCount']} {line['average']} {line['questC']}")
     # print(line)
 # print(len(result))
 
