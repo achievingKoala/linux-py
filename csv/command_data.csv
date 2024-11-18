@@ -295,3 +295,28 @@ id,command_group,command,description,ignore
 323,cron_more_commands,0 12 1 * * /path/to/monthly_report.sh,Cron job to generate a report on the 1st day of every month at noon
 324,cron_more_commands,15 2 * * * /path/to/morning_task.sh,Cron job to run a task at 2:15 AM every day
 325,k8s_pod_management_commands,kubectl get pods -n namespace,Get pods from a specific namespace by using -n with the namespace name
+326,markdown_commands,# Header 1,Defines a header level 1
+327,markdown_commands,## Header 2,Defines a header level 2
+328,markdown_commands,### Header 3,Defines a header level 3
+329,markdown_commands,- Item,Defines a list item in an unordered list
+330,markdown_commands,1. Item,Defines a list item in an ordered list
+331,markdown_commands,**bold text**,Defines bold text
+332,markdown_commands,*italic text*,Defines italic text
+333,markdown_commands,`code`,Defines inline code
+334,markdown_commands,```code block```,Defines a code block
+335,markdown_commands,[Link](url),Defines a hyperlink
+336,markdown_commands,---,Creates a horizontal rule
+337,markdown_commands,> Blockquote,Defines a blockquote
+338,markdown_commands,[TOC],Generates a table of contents
+339,markdown_commands,<br>,Defines a line break
+340,environment_commands,echo $VARIABLE,Display the value of an environment variable
+341,environment_commands,export VARIABLE=value,Set an environment variable in the current shell
+342,environment_commands,unset VARIABLE,Remove an environment variable
+343,environment_commands,env,Display all environment variables in the current session
+344,environment_commands,printenv VARIABLE,Print the value of a specific environment variable
+345,environment_commands,set,Display shell variables and functions or set new ones
+346,environment_commands,env VARIABLE=value command,Run a command with a temporary environment variable
+347,environment_commands,. file_name,Source a file to set environment variables in the current shell
+348,environment_commands,source file_name,Alternative to '.' to source a file and set environment variables
+349,environment_commands,export -n VARIABLE,Unset an exported variable but keep it in the local shell
+350,environment_commands, ~/.bashrc && source ~/.bashrc,Set a persistent environment variable by appending it to the file and reloading the shell

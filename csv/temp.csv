@@ -1,0 +1,21 @@
+1,docker_swarm_commands,docker swarm init,Initialize a new Docker Swarm
+2,docker_swarm_commands,docker swarm join --token token manager-ip:port,Join a node to the Swarm using the provided token
+3,docker_swarm_commands,docker node ls,List all nodes in the Swarm
+4,docker_swarm_commands,docker node rm node-id,Remove a node from the Swarm by node ID
+5,docker_swarm_commands,docker service create --name service-name --replicas number image,Create a new service in the Swarm with specified replicas
+6,docker_swarm_commands,docker service ls,List all services in the Swarm
+7,docker_swarm_commands,docker service scale service-name=replicas,Scale a service to the specified number of replicas
+8,docker_swarm_commands,docker service update --image new-image service-name,Update a service to use a new image
+9,docker_swarm_commands,docker service rm service-name,Remove a service from the Swarm
+10,docker_swarm_commands,docker stack deploy -c compose-file stack-name,Deploy a stack using a Docker Compose file
+11,docker_swarm_commands,docker stack rm stack-name,Remove a stack from the Swarm
+12,docker_swarm_commands,docker stack ls,List all stacks in the Swarm
+13,docker_swarm_commands,docker stack services stack-name,List all services in a specific stack
+14,docker_swarm_commands,docker node update --availability drain/pause/active node-id,Update the availability status of a node
+15,docker_nginx_swarm_commands,docker swarm init,Initialize a new Docker Swarm
+16,docker_nginx_swarm_commands,docker service create --name nginx_cluster --replicas 3 -p 80:80 nginx,"Create an Nginx service with 3 replicas, exposing port 80"
+17,docker_nginx_swarm_commands,docker service ls,List all services to verify the deployment
+18,docker_nginx_swarm_commands,docker service ps nginx_cluster,Check the status and replica count of the Nginx service
+19,docker_nginx_swarm_commands,docker service scale nginx_cluster=5,Scale the Nginx service to 5 replicas
+20,docker_nginx_swarm_commands,docker service update --image nginx:latest nginx_cluster,Update the Nginx service to use the latest image
+21,docker_nginx_swarm_commands,docker service rm nginx_cluster,Remove the Nginx service from the Swarm

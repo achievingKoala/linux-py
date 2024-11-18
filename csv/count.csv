@@ -226,3 +226,532 @@ id,command_id,command,is_correct
 249,213,"greet() { echo ""Hello, $1!""; }",False
 250,209,echo ${arr[1]},False
 251,212,"if [ -e ""file.txt"" ]; then echo ""File exists""; fi",False
+252,59,ftp hostname,True
+253,58,traceroute host,False
+254,56,netstat -a,True
+255,52,ssh user@hostname,True
+256,57,netstat -tuln,True
+257,62,wget -r url,True
+258,65,scp -r directory user@host:path,False
+259,51,ping host,True
+260,63,ping -c 4 hostname,False
+261,66,sftp> put file,True
+262,61,ip route show,True
+263,78,nice -n 10 ./my_script.sh,False
+264,53,scp file user@host:path,False
+265,53,scp file user@host:path,True
+266,64,ftp> get file,True
+267,64,ftp> get file,True
+268,60,sftp user@hostname,False
+269,242,sudo yum check-update,False
+270,242,sudo yum check-update,True
+271,245,sudo yum update,False
+272,245,sudo yum update,False
+273,245,sudo yum update,True
+274,85,cat /etc/passwd,False
+275,85,cat /etc/passwd,True
+276,88,sudo groupmod -n newgroupname oldgroupname,False
+277,88,sudo groupmod -n newgroupname oldgroupname,True
+278,82,sudo userdel username,True
+279,92,chmod 755 filename,True
+280,84,whoami,True
+281,90,cat /etc/group,False
+282,89,groups username,True
+283,81,sudo useradd username,False
+284,185,awk -F: '{print $1}' /etc/passwd,False
+285,188,"cut -d ' ' -f 1,3,5 report.txt",False
+286,188,"cut -d ' ' -f 1,3,5 report.txt",False
+287,183,awk '{if ($1 > 10) print}',True
+288,189,cut -d ':' -f 1 /etc/passwd,True
+289,187,"cut -d ',' -f 2 data.csv",True
+290,184,"awk '{print NR, $0}'",True
+291,186,cut -c 1-5 filename.txt,True
+292,193,cat -e filename.txt,True
+293,237,sudo apt clean,True
+294,233,sudo apt update,True
+295,221,"my_dict[""age""]=30",True
+296,223,"for key in ""${!my_dict[@]}""; do echo ""$key: ${my_dict[$key]}""; done",True
+297,219,declare -A my_dict,True
+298,222,"echo ${my_dict[""name""]}",True
+299,220,"my_dict[""name""]=""Alice""",True
+300,204,"str=""Hello, Shell""",True
+301,209,echo ${arr[1]},True
+302,214,"greet ""Alice""",True
+303,210,"if [ ""$num"" -gt 5 ]; then echo ""num is greater than 5""; else echo ""num is less than or equal to 5""; fi",True
+304,164,find /dir -size +50M,True
+305,169,find /dir -user username,True
+306,167,find /dir -atime +30,True
+307,168,find /dir -perm 644,True
+308,171,find /dir -maxdepth 2 -name '*.conf',True
+309,208,"arr=(""apple"" ""banana"" ""cherry"")",True
+310,110,grep -E 'regex' filename,True
+311,205,num1=5,True
+312,104,grep -i 'keyword' filename,True
+313,206,num2=3,True
+314,227,gzip filename,True
+315,225,tar -xzvf archive.tar.gz,True
+316,228,gunzip filename.gz,True
+317,224,tar -czvf archive.tar.gz /path/to/directory,True
+318,226,tar -xzvf archive.tar.gz -C /path/to/extract,True
+319,186,cut -c 1-5 filename.txt,True
+320,229,gzip -d filename.gz,True
+321,232,unzip archive.zip -d /path/to/extract,True
+322,231,unzip archive.zip,True
+323,230,zip -r archive.zip /path/to/directory,True
+324,163,find /dir -type d,True
+325,162,find /dir -type f,True
+326,172,find /dir -exec rm {} \;,True
+327,166,find /dir -mtime -7,True
+328,122,docker rm container_id_or_name,True
+329,123,docker exec -it container_id_or_name /bin/bash,True
+330,119,docker start container_id_or_name,True
+331,116,docker run -d --name container_name image_name[:tag],True
+332,36,depends_on: backend,True
+333,29,version: '3.8',True
+334,32,image: nginx:latest,True
+335,33,"ports: '80:80', '5000:5000'",True
+336,34,"volumes: './data:/data', 'db_data:/var/lib/mysql'",True
+337,24,COPY . /app,True
+338,27,"CMD [""python3"", ""app.py""]",True
+339,47,ENV APP_ENV production,True
+340,23,WORKDIR /app,True
+341,26,EXPOSE 80,True
+342,256,docker network disconnect network_name container_id_or_name,True
+343,10,docker stack deploy -c compose-file stack-name,True
+344,9,docker service rm service-name,True
+345,4,docker node rm node-id,True
+346,11,docker stack rm stack-name,True
+347,13,docker stack services stack-name,False
+348,37,networks: my_network,True
+349,17,docker service ls,True
+350,14,docker node update --availability drain/pause/active node-id,False
+351,20,docker service update --image nginx:latest nginx_cluster,False
+352,38,"command: [""python3"", ""app.py""]",False
+353,253,docker network ls,False
+354,41,docker compose ps,True
+355,42,docker compose logs --follow,True
+356,40,docker compose down --volumes,True
+357,254,docker network create network_name,False
+358,255,docker network connect network_name container_id_or_name,True
+359,260,docker volume rm volume_name,True
+360,259,docker run -d -v volume_name:/container_path image_name,False
+361,257,docker volume create volume_name,True
+362,258,docker volume ls,True
+363,262,docker logs -f container_name,True
+364,30,services:,True
+365,28,VOLUME /data,True
+366,261,docker logs container_name,True
+367,31,"build: context: ./backend, dockerfile: Dockerfile",True
+368,55,ip addr show,True
+369,68,ps -ef | grep firefox,True
+370,71,kill 1234,True
+371,54,wget url,True
+372,70,htop,True
+373,72,kill -9 1234,True
+374,76,fg %1,True
+375,73,killall firefox,True
+376,74,pkill -u username,True
+377,75,./long_running_script.sh &,True
+378,65,scp -r directory user@host:path,False
+379,79,renice -5 -p 1234,False
+380,63,ping -c 4 hostname,False
+381,58,traceroute host,True
+382,77,jobs,True
+383,57,netstat -tuln,True
+384,56,netstat -a,True
+385,80,strace -p 1234,True
+386,52,ssh user@hostname,False
+387,78,nice -n 10 ./my_script.sh,True
+388,61,ip route show,True
+389,66,sftp> put file,True
+390,62,wget -r url,True
+391,59,ftp hostname,True
+392,60,sftp user@hostname,False
+393,179,awk '{print $1}',True
+394,180,"awk -F, '{print $2}' file.csv",False
+395,181,awk '/pattern/ {print}',False
+396,182,awk '{sum += $1} END {print sum}',True
+397,185,awk -F: '{print $1}' /etc/passwd,False
+398,68,ps -ef | grep firefox,True
+399,67,ps aux,True
+400,69,top,True
+401,71,kill 1234,True
+402,70,htop,True
+403,227,gzip filename,True
+404,207,sum=$((num1 + num2)),True
+405,224,tar -czvf archive.tar.gz /path/to/dir,True
+406,226,tar -xzvf archive.tar.gz -C /path/to/extract,False
+407,225,tar -xzvf archive.tar.gz,True
+408,248,sudo dnf remove package_name,True
+409,250,sudo rpm -ivh package_name.rpm,True
+410,249,sudo dnf upgrade,True
+411,246,sudo dnf check-update,True
+412,244,sudo yum remove package_name,True
+413,228,gunzip filename.gz,True
+414,231,unzip archive.zip,True
+415,232,unzip archive.zip -d /path/to/extract,False
+416,230,zip -r archive.zip /path/to/dir,True
+417,229,gzip -d filename.gz,False
+418,286,service servicename status,True
+419,284,service servicename stop,True
+420,282,chkconfig --list,True
+421,283,service servicename start,True
+422,285,service servicename restart,True
+423,291,systemctl enable servicename,True
+424,290,systemctl status servicename,True
+425,289,systemctl restart servicename,True
+426,287,systemctl start servicename,True
+427,288,systemctl stop servicename,True
+428,284,service servicename stop,True
+429,282,chkconfig --list,True
+430,283,service servicename start,True
+431,292,systemctl disable servicename,True
+432,285,service servicename restart,False
+433,296,lsblk,True
+434,294,df -h,True
+435,297,ln source_file link_name,True
+436,293,sudo fdisk -l,True
+437,295,du -sh /dir,True
+438,298,ln -s source_file link_name,True
+439,300,locate -i filename,True
+440,301,locate -c filename,True
+441,299,locate filename,True
+442,302,locate -r 'regex',False
+443,25,RUN apt-get update && apt-get install -y python3,True
+444,23,WORKDIR /app,True
+445,302,locate -r 'regex',True
+446,22,FROM ubuntu:20.04,False
+447,24,COPY . /app,True
+448,47,ENV APP_ENV production,False
+449,294,df -h,True
+450,50,HEALTHCHECK CMD curl --fail http://localhost || exit 1,True
+451,45,ADD package.tar.gz /app,False
+452,293,sudo fdisk -l,True
+453,267,/etc,True
+454,264,/bin,True
+455,265,/boot,True
+456,266,/dev,True
+457,263,/,False
+458,271,/mnt,True
+459,270,/media,True
+460,268,/home,True
+461,269,/lib,True
+462,272,/opt,True
+463,276,/sbin,True
+464,277,/srv,True
+465,273,/proc,True
+466,275,/run,True
+467,274,/root,True
+468,280,/usr,True
+469,281,/var,True
+470,278,/sys,True
+471,279,/tmp,True
+472,263,/,True
+473,74,pkill -u username,True
+474,75,./long_running_script.sh &,False
+475,55,ip addr show,True
+476,54,wget url,True
+477,73,killall firefox,True
+478,84,whoami,False
+479,83,sudo usermod -aG groupname username,True
+480,81,sudo useradd username,True
+481,90,cat /etc/group,True
+482,82,sudo userdel username,True
+483,286,service servicename status,True
+484,187,"cut -d ',' -f 2 data.csv",True
+485,289,systemctl restart servicename,True
+486,290,systemctl status servicename,False
+487,288,systemctl stop servicename,True
+488,287,systemctl start servicename,True
+489,189,cut -d ':' -f 1 /etc/passwd,True
+490,291,systemctl enable servicename,False
+491,307,whereis command,True
+492,306,whatis command,True
+493,304,command --help,True
+494,303,man command,True
+495,305,info command,True
+496,308,which command,True
+497,117,docker ps,True
+498,120,docker stop container_id_or_name,False
+499,114,docker images,True
+500,113,docker pull mysql:tag,True
+501,115,docker rmi image_id_or_name,True
+502,112,docker search image_name,True
+503,38,"command: [""python3"", ""app.py""]",True
+504,29,version: '3.8',True
+505,34,"volumes: './data:/data', 'db_data:/var/lib/mysql'",False
+506,32,image: nginx:latest,True
+507,33,"ports: '80:80', '5000:5000'",True
+508,35,environment: MYSQL_ROOT_PASSWORD: example,True
+509,191,cat file1.txt file2.txt,True
+510,190,cat filename.txt,True
+511,193,cat -e filename.txt,True
+512,194,cat filename.txt | grep 'keyword',False
+513,192,cat -n filename.txt,True
+514,299,locate filename,True
+515,264,/bin,True
+516,267,/etc,True
+517,265,/boot,True
+518,268,/home,True
+519,266,/dev,True
+520,269,/lib,True
+521,160,kubectl delete service service_name,True
+522,157,kubectl expose deployment nginx --type=NodePort --port=80,True
+523,191,cat file1.txt file2.txt,True
+524,159,kubectl describe service service_name,True
+525,193,cat -e filename.txt,True
+526,158,kubectl get services,True
+527,216,"for i in {1..5}; do echo ""$i""; done",True
+528,217,count=1,True
+529,220,"my_dict[""name""]=""Alice""",True
+530,218,"while [ $count -le 5 ]; do echo ""Count: $count""; count=$((count + 1)); done",True
+531,221,"my_dict[""age""]=30",True
+532,215,"for item in ""${arr[@]}""; do echo ""$item""; done",True
+533,219,declare -A my_dict,True
+534,254,docker network create network_name,True
+535,258,docker volume ls,True
+536,255,docker network connect network_name container_id_or_name,True
+537,256,docker network disconnect network_name container_id_or_name,True
+538,253,docker network ls,True
+539,259,docker run -d -v volume_name:/container_path image_name,True
+540,257,docker volume create volume_name,True
+541,146,kubectl get pods,True
+542,148,kubectl describe pod pod_name,False
+543,121,docker restart container_id_or_name,True
+544,149,kubectl logs pod_name,True
+545,123,docker exec -it container_id_or_name /bin/bash,True
+546,147,kubectl get pods --all-namespaces,True
+547,150,kubectl logs pod_name -c container_name,False
+548,259,docker run -d -v volume_name:/container_path image_name,True
+549,254,docker network create network_name,True
+550,255,docker network connect network_name container_id_or_name,False
+551,261,docker logs container_name,False
+552,253,docker network ls,True
+553,262,docker logs -f container_name,True
+554,260,docker volume rm volume_name,True
+555,285,service servicename restart,False
+556,290,systemctl status servicename,True
+557,282,chkconfig --list,True
+558,283,service servicename start,False
+559,291,systemctl enable servicename,True
+560,292,systemctl disable servicename,True
+561,284,service servicename stop,True
+562,49,ARG VERSION=1.0,True
+563,45,ADD package.tar.gz /app,False
+564,47,ENV APP_ENV production,False
+565,46,"ENTRYPOINT [""python3"", ""app.py""]",False
+566,44,"LABEL version=""1.0""",False
+567,50,HEALTHCHECK CMD curl --fail http://localhost || exit 1,False
+568,48,USER appuser,True
+569,274,/root,True
+570,273,/proc,True
+571,272,/opt,True
+572,275,/run,True
+573,276,/sbin,True
+574,270,/media,True
+575,271,/mnt,True
+576,196,uniq -c filename.txt,True
+577,304,command --help,True
+578,195,uniq filename.txt,True
+579,197,uniq -d filename.txt,True
+580,303,man command,True
+581,198,uniq -u filename.txt,True
+582,305,info command,True
+583,188,"cut -d ' ' -f 1,3,5 report.txt",True
+584,223,"for key in ""${!my_dict[@]}""; do echo ""$key: ${my_dict[$key]}""; done",True
+585,189,cut -d ':' -f 1 /etc/passwd,True
+586,222,"echo ${my_dict[""name""]}",False
+587,187,"cut -d ',' -f 2 data.csv",True
+588,186,cut -c 1-5 filename.txt,True
+589,219,declare -A my_dict,True
+590,264,/bin,True
+591,263,/,True
+592,277,/srv,True
+593,278,/sys,True
+594,280,/usr,True
+595,279,/tmp,True
+596,281,/var,True
+597,294,df -h,True
+598,187,"cut -d ',' -f 2 data.csv",True
+599,295,du -sh /dir,True
+600,188,"cut -d ' ' -f 1,3,5 report.txt",True
+601,293,sudo fdisk -l,True
+602,186,cut -c 1-5 filename.txt,True
+603,296,lsblk,True
+604,134,kubectl create configmap my-config --from-file=config.txt,True
+605,137,kubectl delete configmap my-config,False
+606,136,kubectl describe configmap my-config,True
+607,140,kubectl describe secret my-secret,True
+608,139,kubectl get secrets,True
+609,135,kubectl get configmaps,True
+610,138,kubectl create secret generic my-secret --from-literal=password=YOUR_PASSWORD,False
+611,294,df -h,True
+612,296,lsblk,True
+613,189,cut -d ':' -f 1 /etc/passwd,True
+614,293,sudo fdisk -l,True
+615,186,cut -c 1-5 filename.txt,True
+616,188,"cut -d ' ' -f 1,3,5 report.txt",True
+617,295,du -sh /dir,True
+618,197,uniq -d filename.txt,True
+619,302,locate -r 'regex',True
+620,300,locate -i filename,True
+621,301,locate -c filename,True
+622,195,uniq filename.txt,True
+623,196,uniq -c filename.txt,True
+624,198,uniq -u filename.txt,True
+625,155,kubectl scale deployment nginx --replicas=3,True
+626,159,kubectl describe service service_name,True
+627,154,kubectl get all,True
+628,157,kubectl expose deployment nginx --type=NodePort --port=80,True
+629,153,kubectl delete -f config.yaml,True
+630,156,kubectl autoscale deployment nginx --min=2 --max=5 --cpu-percent=80,True
+631,158,kubectl get services,True
+632,45,ADD package.tar.gz /app,True
+633,46,"ENTRYPOINT [""python3"", ""app.py""]",False
+634,121,docker restart container_id_or_name,True
+635,116,docker run -d --name container_name image_name[:tag],True
+636,112,docker search image_name,False
+637,113,docker pull mysql:tag,True
+638,123,docker exec -it container_id_or_name /bin/bash,True
+639,136,kubectl describe configmap my-config,True
+640,139,kubectl get secrets,True
+641,141,kubectl delete secret my-secret,True
+642,135,kubectl get configmaps,True
+643,137,kubectl delete configmap my-config,True
+644,138,kubectl create secret generic my-secret --from-literal=password=YOUR_PASSWORD,False
+645,134,kubectl create configmap my-config --from-file=config.txt,True
+646,311,crontab -e,True
+647,309,crontab -l,True
+648,310,crontab -r,True
+649,314,* * * * * /path/to/script.sh,True
+650,313,for user in $(cut -f1 -d: /etc/passwd); do echo $user; crontab -u $user -l; done,True
+651,315,minute,True
+652,312,crontab -u username -l,True
+653,86,sudo groupadd groupname,True
+654,91,ls -l,True
+655,89,groups username,True
+656,92,chmod 755 filename,True
+657,93,sudo chown username:groupname filename,True
+658,87,sudo groupdel groupname,True
+659,81,sudo useradd username,True
+660,286,service servicename status,True
+661,256,docker network disconnect network_name container_id_or_name,True
+662,260,docker volume rm volume_name,False
+663,258,docker volume ls,True
+664,261,docker logs container_name,True
+665,257,docker volume create volume_name,True
+666,262,docker logs -f container_name,True
+667,288,systemctl stop servicename,True
+668,116,docker run -d --name container_name image_name[:tag],False
+669,287,systemctl start servicename,True
+670,112,docker search image_name,False
+671,289,systemctl restart servicename,False
+672,285,service servicename restart,True
+673,292,systemctl disable servicename,True
+674,113,docker pull mysql:tag,True
+675,206,num2=3,True
+676,207,sum=$((num1 + num2)),True
+677,209,echo ${arr[1]},True
+678,121,docker restart container_id_or_name,True
+679,208,"arr=(""apple"" ""banana"" ""cherry"")",True
+680,204,"str=""Hello, Shell""",True
+681,148,kubectl describe pod pod_name,True
+682,149,kubectl logs pod_name,True
+683,146,kubectl get pods,True
+684,150,kubectl logs pod_name -c container_name,True
+685,76,fg %1,True
+686,151,kubectl exec -it pod_name -- /bin/sh,True
+687,147,kubectl get pods --all-namespaces,True
+688,243,sudo yum install package_name,True
+689,252,rpm -qi package_name,True
+690,251,sudo rpm -e package_name,True
+691,226,tar -xzvf archive.tar.gz -C /path/to/extract,True
+692,247,sudo dnf install package_name,True
+693,229,gzip -d filename.gz,True
+694,232,unzip archive.zip -d /path/to/extract,False
+695,43,docker compose restart service_name,True
+696,37,networks: my_network,True
+697,40,docker compose down --volumes,True
+698,36,depends_on: backend,True
+699,42,docker compose logs --follow,True
+700,39,docker compose up -d --build,True
+701,41,docker compose ps,True
+702,23,WORKDIR /app,True
+703,25,RUN apt-get update && apt-get install -y python3,False
+704,27,"CMD [""python3"", ""app.py""]",True
+705,24,COPY . /app,False
+706,26,EXPOSE 80,True
+707,22,FROM ubuntu:20.04,False
+708,28,VOLUME /data,False
+709,26,EXPOSE 80,True
+710,23,WORKDIR /app,True
+711,22,FROM ubuntu:20.04,True
+712,28,VOLUME /data,True
+713,24,COPY . /app,True
+714,25,RUN apt-get update && apt-get install -y python3,False
+715,27,"CMD [""python3"", ""app.py""]",False
+716,236,sudo apt remove package_name,True
+717,239,sudo dpkg -i package_name.deb,False
+718,241,dpkg -l,False
+719,240,sudo dpkg -r package_name,False
+720,235,sudo apt install package_name,False
+721,238,sudo apt autoremove,False
+722,234,sudo apt upgrade,False
+723,227,gzip filename,False
+724,224,tar -czvf archive.tar.gz /dir,True
+725,198,uniq -u filename.txt,True
+726,195,uniq filename.txt,True
+727,225,tar -xzvf archive.tar.gz,True
+728,196,uniq -c filename.txt,True
+729,197,uniq -d filename.txt,True
+730,176,sed -e 's/foo/bar/' -e 's/baz/qux/',False
+731,174,sed -n '3p' file.txt,True
+732,173,sed 's/old/new/g' file.txt,False
+733,177,sed -i 's/old/new/g' file.txt,False
+734,175,sed '1d' file.txt,True
+735,316,hour,True
+736,317,day_of_month,True
+737,309,crontab -l,True
+738,319,day_of_week,True
+739,318,month,True
+740,314,* * * * * /path/to/script.sh,True
+741,313,for user in $(cut -f1 -d: /etc/passwd); do echo $user; crontab -u $user -l; done,True
+742,310,crontab -r,True
+743,311,crontab -e,True
+744,312,crontab -u username -l,True
+745,315,minute,True
+746,316,hour,True
+747,295,du -sh /dir,True
+748,48,USER appuser,True
+749,296,lsblk,True
+750,50,HEALTHCHECK CMD curl --fail http://localhost || exit 1,False
+751,49,ARG VERSION=1.0,True
+752,44,"LABEL version=""""1.0""""""",False
+753,47,ENV APP_ENV production,True
+754,328,### Header 3,True
+755,326,# Header 1,True
+756,330,1. Item,True
+757,331,**bold text**,True
+758,332,*italic text*,True
+759,329,- Item,True
+760,327,## Header 2,True
+761,336,---,True
+762,339,<br>,True
+763,333,`code`,True
+764,335,[Link](url),True
+765,337,> Blockquote,True
+766,338,[TOC],True
+767,334,```code block```,True
+768,327,## Header 2,True
+769,332,*italic text*,True
+770,329,- Item,True
+771,326,# Header 1,True
+772,330,1. Item,True
+773,328,### Header 3,True
+774,331,**bold text**,True
+775,305,info command,True
+776,308,which command,True
+777,306,whatis command,True
+778,307,whereis command,True
+779,303,man command,True
+780,304,command --help,True

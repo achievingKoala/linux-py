@@ -20,6 +20,7 @@
 #         return df[df['command_group'] == command_group].to_dict(orient='records')
 #     return []
 
+import random
 import pandas as pd
 import sqlite3
 
@@ -45,6 +46,59 @@ def load_csv_to_sqlite(file_path, table_name, conn):
         print(f"An error occurred: {e}")
         return False
 
+def query_random_data(key_words=['docker','k8s'], limit=5):
+    with sqlite3.connect(':memory:') as conn:
+        # Load both CSV files into SQLite tables
+        if not load_csv_to_sqlite('csv/command_data.csv', 'command_data', conn):
+            return []
+        
+        query = """
+        select distinct command_group from command_data
+        """
+        # Construct the WHERE clause for fuzzy matching
+        # where_clause = ' OR '.join("command_data.command_group LIKE ?" for _ in command_group_key_word)
+        # Construct the WHERE clause for fuzzy matching excluding 'docker' and 'k8s' command groups
+        # where_clause = ' AND '.join("command_data.command_group NOT LIKE ?" for _ in key_words)
+        # query = query.format(where_clause)
+        # fuzzy_keywords = [f"%{kw}%" for kw in key_words]
+        # Prepare keywords for fuzzy matching
+        result = pd.read_sql_query(query, conn, params= ())
+
+        array = [x['command_group']  for x in result.to_dict(orient='records')]
+        array = [x for x in array if not any(kw in x for kw in key_words)]
+        return random.sample(array, 2)
+
+
+# print(query_random_data())
+
+def query_exclude_data(key_words=['docker','k8s'], limit=5):
+    with sqlite3.connect(':memory:') as conn:
+        # Load both CSV files into SQLite tables
+        if not load_csv_to_sqlite('csv/command_data.csv', 'command_data', conn):
+            return []
+        if not load_csv_to_sqlite('csv/count.csv', 'count', conn):
+            return []
+        query = """
+        SELECT command_data.id, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
+        , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
+        FROM command_data 
+        LEFT JOIN count ON command_data.id = count.command_id
+        WHERE {}
+        GROUP BY command_data.id
+        ORDER BY pCount, tCount
+        LIMIT ?
+        """
+        # Construct the WHERE clause for fuzzy matching
+        # where_clause = ' OR '.join("command_data.command_group LIKE ?" for _ in command_group_key_word)
+        # Construct the WHERE clause for fuzzy matching excluding 'docker' and 'k8s' command groups
+        where_clause = ' AND '.join("command_data.command_group NOT LIKE ?" for _ in key_words)
+        query = query.format(where_clause)
+        # Prepare keywords for fuzzy matching
+        fuzzy_keywords = [f"%{kw}%" for kw in key_words]
+        result = pd.read_sql_query(query, conn, params= fuzzy_keywords + [limit])
+
+        return result.to_dict(orient='records')
+    
 def query_fuzzy_data(command_group_key_word=['docker'], limit=5):
     with sqlite3.connect(':memory:') as conn:
         # Load both CSV files into SQLite tables
@@ -81,29 +135,13 @@ def query_joined_data(command_group=['process_commands'], limit=5):
             return []
         
         # Execute SQL JOIN query
-        # query = f"""
-        # SELECT t1.id, t1.command
-        # FROM command_data t1
-        # left JOIN count t2 ON t1.id = t2.command_id
-        # WHERE t1.command_group = ?
-        # """
-        # query = """
-        # SELECT t1.id, t1.command, t2.command_id
-        # FROM command_data t1
-        # LEFT JOIN count t2 ON CAST(t1.id AS INTEGER) = CAST(t2.command_id AS INTEGER)
-        # WHERE t1.command_group = ?
-        # """
-        # query = f"""
-        # SELECT ROUND(t1.id), ROUND(t2.command_id), ROUND(t1.id) = ROUND(t2.command_id) AS is_equal
-        # FROM command_data as t1 left join count as t2 on ROUND(t1.id) = ROUND(t2.command_id)
-        # """
-        # WHERE command_data.id = count.command_id
         query = """
-        SELECT command_data.id, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
+        SELECT command_data.id, command_data.ignore, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
         , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
         FROM command_data 
         LEFT JOIN count ON command_data.id = count.command_id
         WHERE command_data.command_group IN ({})
+        and command_data.ignore is NULL
         GROUP BY command_data.id
         ORDER BY pCount, tCount
         LIMIT ?
@@ -113,11 +151,35 @@ def query_joined_data(command_group=['process_commands'], limit=5):
         result = pd.read_sql_query(query, conn, params=command_group + [limit])
 
         return result.to_dict(orient='records')
-    
-# result = query_joined_data()
+
+def query_min_data(command_group=['process_commands'], limit=10):
+    with sqlite3.connect(':memory:') as conn:
+        # Load both CSV files into SQLite tables
+        if not load_csv_to_sqlite('csv/command_data.csv', 'command_data', conn):
+            return []
+        if not load_csv_to_sqlite('csv/count.csv', 'count', conn):
+            return []
+        
+        # Execute SQL JOIN query
+        query = """
+        SELECT command_data.id, command_data.command, command_data.description, count.command_id, count(count.command_id) as pCount
+        , SUM(CASE WHEN count.is_correct = 1 THEN 1 ELSE 0 END) as tCount
+        FROM command_data 
+        LEFT JOIN count ON command_data.id = count.command_id
+        GROUP BY command_data.id
+        ORDER BY pCount, tCount
+        LIMIT ?
+        """
+        placeholders = ','.join('?' for _ in command_group)
+        query = query.format(placeholders)
+        result = pd.read_sql_query(query, conn, params=[limit])
+
+        return result.to_dict(orient='records')
+
+# result = query_min_data()
 # print()
 # for line in result:
-#     print(line)
+    # print(line)
 # print(len(result))
 
 def merge_and_load_to_sql():
