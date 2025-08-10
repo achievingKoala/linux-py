@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Linux命令学习</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        .header h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn { 
+            padding: 12px 24px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .command-card { 
+            border: 1px solid #e0e0e0; 
+            padding: 25px; 
+            margin: 25px 0; 
+            border-radius: 12px; 
+            background: #fafafa;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .command-text { 
+            background: #2d3748; 
+            color: #e2e8f0; 
+            padding: 20px; 
+            border-radius: 8px; 
+            font-family: 'Courier New', monospace; 
+            margin-bottom: 20px; 
+            font-size: 16px;
+            line-height: 1.4;
+            border-left: 4px solid #4299e1;
+        }
+        .command-description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .loading { 
+            text-align: center; 
+            padding: 60px; 
+            font-size: 18px;
+            color: #666;
+        }
+        .progress { 
+            margin: 15px 0; 
+            font-weight: bold; 
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+        .btn-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .completion-message {
+            text-align: center;
+            padding: 40px;
+            font-size: 24px;
+            color: #28a745;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 20px; margin: 10px; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; }
+            .btn-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐧 Linux命令学习系统</h1>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="loadRandomCommands()">🎲 随机练习</button>
+                <button class="btn btn-primary" onclick="loadCategory('find_commands')">🔍 Find命令</button>
+                <button class="btn btn-primary" onclick="loadCategory('grep_commands')">📝 Grep命令</button>
+                <button class="btn btn-primary" onclick="loadCategory('docker_basic_commands')">🐳 Docker基础</button>
+                <button class="btn btn-primary" onclick="loadCategory('process_commands')">⚙️ 进程管理</button>
+            </div>
+        </div>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <div>📚 加载中...</div>
+        </div>
+        <div id="commands-container">
+            <div style="text-align: center; padding: 40px; color: #666; font-size: 18px;">
+                <p>👆 选择一个类别开始学习Linux命令</p>
+                <p style="font-size: 14px; margin-top: 20px;">💡 提示：点击"我知道"或"不知道"来记录学习进度</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5001/api';
+        let currentCommands = [];
+        let currentIndex = 0;
+        
+        function loadRandomCommands() {
+            showLoading();
+            fetch(`${API_BASE}/commands/random`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentCommands = data.commands;
+                        currentIndex = 0;
+                        displayCurrentCommand();
+                    }
+                })
+                .finally(() => hideLoading());
+        }
+        
+        function loadCategory(category) {
+            showLoading();
+            fetch(`${API_BASE}/commands/${category}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentCommands = data.commands;
+                        currentIndex = 0;
+                        displayCurrentCommand();
+                    }
+                })
+                .finally(() => hideLoading());
+        }
+        
+        function displayCurrentCommand() {
+            const container = document.getElementById('commands-container');
+            
+            if (currentIndex >= currentCommands.length) {
+                container.innerHTML = '<div class="completion-message">🎉 恭喜完成！<br><small style="font-size: 16px; color: #666;">选择其他类别继续练习</small></div>';
+                return;
+            }
+            
+            const command = currentCommands[currentIndex];
+            const progress = `${currentIndex + 1}/${currentCommands.length}`;
+            
+            container.innerHTML = `
+                <div class="progress">📊 进度: ${progress}</div>
+                <div class="command-card">
+                    <div class="command-text">${command.command}</div>
+                    <div class="command-description">${command.description}</div>
+                    <div class="btn-actions">
+                        <button class="btn btn-success" onclick="recordAnswer(true)">✅ 我知道</button>
+                        <button class="btn btn-danger" onclick="recordAnswer(false)">❌ 不知道</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function recordAnswer(isCorrect) {
+            const command = currentCommands[currentIndex];
+            
+            fetch(`${API_BASE}/record`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    command_id: command.id,
+                    command: command.command,
+                    is_correct: isCorrect
+                })
+            });
+            
+            currentIndex++;
+            setTimeout(() => displayCurrentCommand(), 300);
+        }
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('commands-container').innerHTML = '';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

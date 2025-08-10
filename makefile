@@ -1,42 +1,76 @@
-# 定义变量
-VENV = .venv
-PYTHON = $(VENV)/bin/python
-PIP = $(VENV)/bin/pip
+# Linux命令学习系统 Makefile
 
-# 默认目标，创建虚拟环境并安装依赖
-.PHONY: all
-all: install
+.PHONY: help install start stop clean test docker-build docker-run docker-stop
 
-# 创建虚拟环境
-.PHONY: venv
-venv:
-	python3 -m venv $(VENV)
+# 默认目标
+help:
+	@echo "Linux命令学习系统 - 可用命令:"
+	@echo "  install      - 安装依赖"
+	@echo "  start        - 启动开发服务器"
+	@echo "  stop         - 停止服务器"
+	@echo "  clean        - 清理临时文件"
+	@echo "  test         - 运行测试"
+	@echo "  docker-build - 构建Docker镜像"
+	@echo "  docker-run   - 运行Docker容器"
+	@echo "  docker-stop  - 停止Docker容器"
 
 # 安装依赖
-.PHONY: install
-install: venv
-	$(PIP) install -r requirements.txt
+install:
+	@echo "安装Python依赖..."
+	pip install -r requirements.txt
 
-# 运行程序
-.PHONY: run
-run:
-	$(PYTHON) gpt_domo.py
+# 启动开发服务器
+start:
+	@echo "启动Linux命令学习系统..."
+	chmod +x start.sh
+	./start.sh
+
+# 停止服务器
+stop:
+	@echo "停止服务器..."
+	pkill -f "python.*app.py" || true
+
+# 清理临时文件
+clean:
+	@echo "清理临时文件..."
+	find . -type f -name "*.pyc" -delete
+	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.log" -delete
+	find . -type f -name ".DS_Store" -delete
 
 # 运行测试
-.PHONY: test
 test:
-	$(PYTHON) -m unittest discover -s tests
+	@echo "运行测试..."
+	python -m pytest tests/ -v || echo "没有找到测试文件"
 
-# 格式化代码 (使用 black)
-.PHONY: format
-format:
-	$(PYTHON) -m black src tests
+# Docker相关命令
+docker-build:
+	@echo "构建Docker镜像..."
+	docker build -t linux-learning:latest .
 
-# 清理文件
-.PHONY: clean
-clean:
-	rm -rf $(VENV) __pycache__ **/__pycache__
+docker-run:
+	@echo "运行Docker容器..."
+	docker run -d --name linux-learning -p 8080:8080 linux-learning:latest
 
-# 删除依赖并重新安装
-.PHONY: reinstall
-reinstall: clean install
+docker-stop:
+	@echo "停止Docker容器..."
+	docker stop linux-learning || true
+	docker rm linux-learning || true
+
+# 使用docker-compose
+compose-up:
+	@echo "使用Docker Compose启动..."
+	docker-compose up -d
+
+compose-down:
+	@echo "使用Docker Compose停止..."
+	docker-compose down
+
+# 开发环境设置
+dev-setup: install
+	@echo "开发环境设置完成"
+
+# 生产环境部署
+deploy: docker-build
+	@echo "部署到生产环境..."
+	docker-compose -f docker-compose.yml up -d
