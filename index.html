@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Linux命令学习</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .command-card { border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .command-text { background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 5px; font-family: monospace; margin-bottom: 15px; }
+        .loading { text-align: center; padding: 40px; }
+        .progress { margin: 10px 0; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Linux命令学习系统</h1>
+            <button class="btn btn-primary" onclick="loadRandomCommands()">随机练习</button>
+            <button class="btn btn-primary" onclick="loadCategory('find_commands')">Find命令</button>
+            <button class="btn btn-primary" onclick="loadCategory('grep_commands')">Grep命令</button>
+            <button class="btn btn-primary" onclick="loadCategory('docker_basic_commands')">Docker基础</button>
+            <button class="btn btn-primary" onclick="loadCategory('process_commands')">进程管理</button>
+        </div>
+        
+        <div id="loading" class="loading" style="display: none;">加载中...</div>
+        <div id="commands-container">
+            <p>选择一个类别开始学习</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5001/api';
+        let currentCommands = [];
+        let currentIndex = 0;
+        
+        function loadRandomCommands() {
+            showLoading();
+            fetch(`${API_BASE}/commands/random`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentCommands = data.commands;
+                        currentIndex = 0;
+                        displayCurrentCommand();
+                    }
+                })
+                .finally(() => hideLoading());
+        }
+        
+        function loadCategory(category) {
+            showLoading();
+            fetch(`${API_BASE}/commands/${category}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentCommands = data.commands;
+                        currentIndex = 0;
+                        displayCurrentCommand();
+                    }
+                })
+                .finally(() => hideLoading());
+        }
+        
+        function displayCurrentCommand() {
+            const container = document.getElementById('commands-container');
+            
+            if (currentIndex >= currentCommands.length) {
+                container.innerHTML = '<h3>🎉 完成！选择其他类别继续练习</h3>';
+                return;
+            }
+            
+            const command = currentCommands[currentIndex];
+            const progress = `${currentIndex + 1}/${currentCommands.length}`;
+            
+            container.innerHTML = `
+                <div class="progress">进度: ${progress}</div>
+                <div class="command-card">
+                    <div class="command-text">${command.command}</div>
+                    <p>${command.description}</p>
+                    <button class="btn btn-success" onclick="recordAnswer(true)">✓ 我知道</button>
+                    <button class="btn btn-danger" onclick="recordAnswer(false)">✗ 不知道</button>
+                </div>
+            `;
+        }
+        
+        function recordAnswer(isCorrect) {
+            const command = currentCommands[currentIndex];
+            
+            fetch(`${API_BASE}/record`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    command_id: command.id,
+                    command: command.command,
+                    is_correct: isCorrect
+                })
+            });
+            
+            currentIndex++;
+            setTimeout(() => displayCurrentCommand(), 300);
+        }
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('commands-container').innerHTML = '';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
