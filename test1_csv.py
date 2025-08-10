@@ -1,4 +1,4 @@
-from question import process_commands, archive_commands, high_frequency_commands, low_frequency_commands, redhat_commands, debian_commands
+from scripts.question import process_commands, archive_commands
 
 import csv
 

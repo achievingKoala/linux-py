@@ -71,6 +71,26 @@ docker run -p 8080:8080 linux-learning
 - **service_commands** - 服务管理
 - 更多类别...
 
+## 测试
+
+### 运行测试
+```bash
+# 运行所有测试
+pytest
+
+# 运行测试并生成覆盖率报告
+pytest --cov=app --cov-report=html
+
+# 运行特定测试
+pytest test_app.py::test_health_check -v
+```
+
+### CI/CD
+项目配置了GitHub Actions自动化流程：
+- 代码推送时自动运行测试
+- 测试通过后构建Docker镜像
+- 支持代码质量检查
+
 ## 开发说明
 
 ### 添加新命令

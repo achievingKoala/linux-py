@@ -755,3 +755,9 @@ id,command_id,command,is_correct
 778,307,whereis command,True
 779,303,man command,True
 780,304,command --help,True
+781,1,test command,1
+782,1,test command,1
+783,102,grep keyword filename,1
+784,1,test command,1
+785,102,grep keyword filename,1
+786,1,test command,1

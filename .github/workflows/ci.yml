@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+        
+    - name: Create test data
+      run: |
+        mkdir -p csv
+        echo "id,command_group,command,description,ignore" > csv/command_data.csv
+        echo "1,find_commands,find /dir -name 'filename',查找指定名称的文件," >> csv/command_data.csv
+        echo "id,command_id,command,is_correct" > csv/count.csv
+        
+    - name: Run unit tests
+      run: |
+        python -m pytest test_units.py -v --cov=utils --cov=config
+        
+    - name: Run integration tests
+      run: |
+        python -m pytest test_app.py -v
+        
+    - name: Run linting
+      run: |
+        pip install flake8
+        flake8 app.py --max-line-length=120 --ignore=E501,W503
+        
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: |
+        docker build -t linux-learning:latest .
+        
+    - name: Test Docker container
+      run: |
+        docker run -d -p 8080:8080 --name test-container linux-learning:latest
+        sleep 10
+        curl -f http://localhost:8080/api/health || exit 1
+        docker stop test-container
