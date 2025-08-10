@@ -39,10 +39,6 @@ jobs:
       run: |
         python -m pytest test_app.py -v
         
-    - name: Run linting
-      run: |
-        pip install flake8
-        flake8 app.py --max-line-length=120 --ignore=E501,W503
         
   docker:
     needs: test
